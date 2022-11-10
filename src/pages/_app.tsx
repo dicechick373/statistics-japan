@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 // ** Next Imports
 import Head from 'next/head'
@@ -62,6 +62,10 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 // ** Global css styles
 import '../../styles/globals.css'
 
+// ** Jotai
+import { useAtom } from 'jotai'
+import { areasAtom } from './components/atoms'
+
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
   Component: NextPage
@@ -75,6 +79,8 @@ type GuardProps = {
 }
 
 const clientSideEmotionCache = createEmotionCache()
+
+
 
 // ** Pace Loader
 if (themeConfig.routingLoader) {
@@ -113,6 +119,19 @@ const App = (props: ExtendedAppProps) => {
   const guestGuard = Component.guestGuard ?? false
 
   const aclAbilities = Component.acl ?? defaultACLObj
+
+
+  // ** set areasAtom
+  const [areas, setAreas] = useAtom(areasAtom)
+  useEffect(() => {
+    const fetchAreas = async () => {
+      const response = await fetch('/api/areas')
+      const data = await response.json()
+      setAreas(data)
+    }
+    fetchAreas()
+  }, [])
+
 
   return (
     <Provider store={store}>

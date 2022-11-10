@@ -4,7 +4,7 @@ import ChartDonut from 'mdi-material-ui/ChartDonut'
 import FormSelect from 'mdi-material-ui/FormSelect'
 import CubeOutline from 'mdi-material-ui/CubeOutline'
 import LockOutline from 'mdi-material-ui/LockOutline'
-import HomeOutline from 'mdi-material-ui/HomeOutline'
+import WeatherPartlyCloudy from 'mdi-material-ui/WeatherPartlyCloudy'
 import EmailOutline from 'mdi-material-ui/EmailOutline'
 import ShieldOutline from 'mdi-material-ui/ShieldOutline'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
@@ -22,502 +22,296 @@ import CheckboxMarkedCircleOutline from 'mdi-material-ui/CheckboxMarkedCircleOut
 
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
+import { useAtom } from 'jotai'
+import { prefListAtom } from 'src/pages/components/atoms'
 
 const navigation = (): VerticalNavItemsType => {
+
+  const [prefList] = useAtom(prefListAtom)
+  console.log(prefList)
+
   return [
     {
-      title: 'Dashboards',
-      icon: HomeOutline,
-      badgeContent: 'new',
-      badgeColor: 'error',
+      sectionTitle: '統計分野'
+    },
+    {
+      title: '国土・気象',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'CRM',
-          path: '/dashboards/crm'
+          title: '面積',
+          path: '/landweather/area'
         },
         {
-          title: 'Analytics',
-          path: '/dashboards/analytics'
+          title: '気候',
+          path: '/landweather/climate'
         },
         {
-          title: 'eCommerce',
-          path: '/dashboards/ecommerce'
+          title: '自然・公園',
+          path: '/landweather/park'
         }
       ]
     },
     {
-      sectionTitle: 'Apps & Pages'
-    },
-    {
-      title: 'Email',
-      icon: EmailOutline,
-      path: '/apps/email'
-    },
-    {
-      title: 'Chat',
-      icon: MessageOutline,
-      path: '/apps/chat'
-    },
-    {
-      title: 'Calendar',
-      icon: CalendarBlankOutline,
-      path: '/apps/calendar'
-    },
-    {
-      title: 'Invoice',
-      icon: FileDocumentOutline,
+      title: '人口・世帯',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'List',
-          path: '/apps/invoice/list'
+          title: '人口',
+          path: '/population/population'
         },
         {
-          title: 'Preview',
-          path: '/apps/invoice/preview'
+          title: '世帯',
+          path: '/population/household'
         },
         {
-          title: 'Edit',
-          path: '/apps/invoice/edit'
+          title: '婚姻',
+          path: '/population/marriage'
         },
         {
-          title: 'Add',
-          path: '/apps/invoice/add'
+          title: '出生',
+          path: '/population/birth'
+        },
+        {
+          title: '死亡',
+          path: '/population/death'
+        },
+        {
+          title: '流入・流出',
+          path: '/population/inflowoutflow'
+        },
+        {
+          title: '転入・転出',
+          path: '/population/moveinmoveout'
         }
       ]
     },
     {
-      title: 'User',
-      icon: AccountOutline,
+      title: '労働・賃金',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'List',
-          path: '/apps/user/list'
+          title: '労働力人口',
+          path: '/laborwage/labor-force'
         },
         {
-          title: 'View',
-          path: '/apps/user/view'
+          title: '労働・賃金',
+          path: '/laborwage/laborwage'
         }
       ]
     },
     {
-      title: 'Roles & Permissions',
-      icon: LockOutline,
+      title: '農林水産業',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'Roles',
-          path: '/apps/roles'
+          title: '農業',
+          path: '/agriculture/agriculture'
         },
         {
-          title: 'Permissions',
-          path: '/apps/permissions'
+          title: '林業',
+          path: '/agriculture/forestry'
+        },
+        {
+          title: '漁業',
+          path: '/agriculture/fishing'
         }
       ]
     },
     {
-      title: 'Pages',
-      icon: FileDocumentOutline,
+      title: '鉱工業',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'Authentication',
-          children: [
-            {
-              title: 'Login',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Login v1',
-                  path: '/pages/auth/login-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Login v2',
-                  path: '/pages/auth/login-v2'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Login With AppBar',
-                  path: '/pages/auth/login-with-appbar'
-                }
-              ]
-            },
-            {
-              title: 'Register',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Register v1',
-                  path: '/pages/auth/register-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Register v2',
-                  path: '/pages/auth/register-v2'
-                }
-              ]
-            },
-            {
-              title: 'Forgot Password',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Forgot Password v1',
-                  path: '/pages/auth/forgot-password-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Forgot Password v2',
-                  path: '/pages/auth/forgot-password-v2'
-                }
-              ]
-            },
-            {
-              title: 'Reset Password',
-              children: [
-                {
-                  openInNewTab: true,
-                  title: 'Reset Password v1',
-                  path: '/pages/auth/reset-password-v1'
-                },
-                {
-                  openInNewTab: true,
-                  title: 'Reset Password v2',
-                  path: '/pages/auth/reset-password-v2'
-                }
-              ]
-            }
-          ]
+          title: '製造業',
+          path: '/miningindustry/manufacturing-industry'
         },
         {
-          title: 'Account Settings',
-          path: '/pages/account-settings'
-        },
-        {
-          title: 'Pricing',
-          path: '/pages/pricing'
-        },
-        {
-          title: 'FAQ',
-          path: '/pages/faq'
-        },
-        {
-          title: 'Knowledge Base',
-          path: '/pages/knowledge-base'
-        },
-        {
-          title: 'Miscellaneous',
-          children: [
-            {
-              openInNewTab: true,
-              title: 'Coming Soon',
-              path: '/pages/misc/coming-soon'
-            },
-            {
-              openInNewTab: true,
-              title: 'Under Maintenance',
-              path: '/pages/misc/under-maintenance'
-            },
-            {
-              openInNewTab: true,
-              title: 'Page Not Found - 404',
-              path: '/pages/misc/404-not-found'
-            },
-            {
-              openInNewTab: true,
-              title: 'Not Authorized - 401',
-              path: '/pages/misc/401-not-authorized'
-            },
-            {
-              openInNewTab: true,
-              title: 'Server Error - 500',
-              path: '/pages/misc/500-server-error'
-            }
-          ]
+          title: '工業用水',
+          path: '/miningindustry/industrial-water'
         }
       ]
     },
     {
-      icon: VectorArrangeBelow,
-      title: 'Dialog Examples',
-      path: '/pages/dialog-examples'
-    },
-    {
-      sectionTitle: 'User Interface'
-    },
-    {
-      title: 'Typography',
-      icon: FormatLetterCase,
-      path: '/ui/typography'
-    },
-    {
-      title: 'Icons',
-      path: '/ui/icons',
-      icon: GoogleCirclesExtended
-    },
-    {
-      title: 'Cards',
-      icon: CreditCardOutline,
+      title: '商業・サービス業',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'Basic',
-          path: '/ui/cards/basic'
-        },
-        {
-          title: 'Statistics',
-          path: '/ui/cards/statistics'
-        },
-        {
-          title: 'Advanced',
-          path: '/ui/cards/advanced'
-        },
-        {
-          title: 'Gamification',
-          path: '/ui/cards/gamification'
-        },
-        {
-          title: 'Actions',
-          path: '/ui/cards/actions'
-        },
-        {
-          title: 'Widgets',
-          path: '/ui/cards/widgets'
+          title: '商業',
+          path: '/commercial/commercial'
         }
       ]
     },
     {
-      badgeContent: '18',
-      title: 'Components',
-      icon: ArchiveOutline,
-      badgeColor: 'primary',
+      title: '企業・家計・経済',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'Accordion',
-          path: '/components/accordion'
+          title: '総生産',
+          path: '/economy/gross-domestic-product'
         },
         {
-          title: 'Alerts',
-          path: '/components/alerts'
+          title: '家計',
+          path: '/economy/household-budget'
         },
         {
-          title: 'Avatars',
-          path: '/components/avatars'
+          title: '物価',
+          path: '/economy/price'
         },
         {
-          title: 'Badges',
-          path: '/components/badges'
+          title: '売上',
+          path: '/economy/sales'
         },
         {
-          title: 'Buttons',
-          path: '/components/buttons'
-        },
-        {
-          title: 'Button Group',
-          path: '/components/button-group'
-        },
-        {
-          title: 'Chips',
-          path: '/components/chips'
-        },
-        {
-          title: 'Dialogs',
-          path: '/components/dialogs'
-        },
-        {
-          title: 'List',
-          path: '/components/list'
-        },
-        {
-          title: 'Menu',
-          path: '/components/menu'
-        },
-        {
-          title: 'Pagination',
-          path: '/components/pagination'
-        },
-        {
-          title: 'Ratings',
-          path: '/components/ratings'
-        },
-        {
-          title: 'Snackbar',
-          path: '/components/snackbar'
-        },
-        {
-          title: 'Swiper',
-          path: '/components/swiper'
-        },
-        {
-          title: 'Tabs',
-          path: '/components/tabs'
-        },
-        {
-          title: 'Timeline',
-          path: '/components/timeline'
-        },
-        {
-          title: 'Toasts',
-          path: '/components/toast'
-        },
-        {
-          title: 'Tree View',
-          path: '/components/tree-view'
-        },
-        {
-          title: 'More',
-          path: '/components/more'
-        },
-      ]
-    },
-    {
-      sectionTitle: 'Forms & Tables'
-    },
-    {
-      title: 'Form Elements',
-      icon: FormSelect,
-      children: [
-        {
-          title: 'Text Field',
-          path: '/forms/form-elements/text-field'
-        },
-        {
-          title: 'Select',
-          path: '/forms/form-elements/select'
-        },
-        {
-          title: 'Checkbox',
-          path: '/forms/form-elements/checkbox'
-        },
-        {
-          title: 'Radio',
-          path: '/forms/form-elements/radio'
-        },
-        {
-          title: 'Textarea',
-          path: '/forms/form-elements/textarea'
-        },
-        {
-          title: 'Autocomplete',
-          path: '/forms/form-elements/autocomplete'
-        },
-        {
-          title: 'Date Pickers',
-          path: '/forms/form-elements/pickers'
-        },
-        {
-          title: 'Switch',
-          path: '/forms/form-elements/switch'
-        },
-        {
-          title: 'File Uploader',
-          path: '/forms/form-elements/file-uploader'
-        },
-        {
-          title: 'Editor',
-          path: '/forms/form-elements/editor'
-        },
-        {
-          title: 'Slider',
-          path: '/forms/form-elements/slider'
-        },
-        {
-          title: 'Input Mask',
-          path: '/forms/form-elements/input-mask'
-        },
-      ]
-    },
-    {
-      icon: CubeOutline,
-      title: 'Form Layouts',
-      path: '/forms/form-layouts'
-    },
-    {
-      title: 'Form Validation',
-      path: '/forms/form-validation',
-      icon: CheckboxMarkedCircleOutline
-    },
-    {
-      title: 'Form Wizard',
-      path: '/forms/form-wizard',
-      icon: PackageVariantClosed
-    },
-    {
-      title: 'Table',
-      icon: Table,
-      path: '/tables/mui'
-    },
-    {
-      title: 'Mui DataGrid',
-      icon: Table,
-      path: '/tables/data-grid'
-    },
-    {
-      sectionTitle: 'Charts & Misc'
-    },
-    {
-      title: 'Charts',
-      icon: ChartDonut,
-      children: [
-        {
-          title: 'Apex',
-          path: '/charts/apex-charts'
-        },
-        {
-          title: 'Recharts',
-          path: '/charts/recharts'
-        },
-        {
-          title: 'ChartJS',
-          path: '/charts/chartjs'
+          title: '事業所等',
+          path: '/economy/establishments'
         }
       ]
     },
     {
-      path: '/acl',
-      action: 'read',
-      subject: 'acl-page',
-      icon: ShieldOutline,
-      title: 'Access Control'
-    },
-    {
-      title: 'Others',
-      icon: DotsHorizontal,
+      title: '住宅・土地・建設',
+      icon: WeatherPartlyCloudy,
       children: [
         {
-          title: 'Menu Levels',
-          children: [
-            {
-              title: 'Menu Level 2.1'
-            },
-            {
-              title: 'Menu Level 2.2',
-              children: [
-                {
-                  title: 'Menu Level 3.1'
-                },
-                {
-                  title: 'Menu Level 3.2'
-                }
-              ]
-            }
-          ]
+          title: '土地',
+          path: '/construction/land'
         },
         {
-          title: 'Disabled Menu',
-          disabled: true
+          title: '建設',
+          path: '/construction/construction'
+        },
+      ]
+    },
+    {
+      title: 'エネルギー・水',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: 'エネルギー',
+          path: '/energy/energy'
         },
         {
-          title: 'Raise Support',
-          externalLink: true,
-          openInNewTab: true,
-          path: 'https://pixinvent.ticksy.com/'
-        },
-        {
-          title: 'Documentation',
-          externalLink: true,
-          openInNewTab: true,
-          path: 'https://pixinvent.com/demo/materialize-mui-react-nextjs-admin-template/documentation'
+          title: 'ごみ',
+          path: '/energy/garbage'
         }
       ]
-    }
+    },
+    {
+      title: '運輸・観光',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: '自動車',
+          path: '/tourism/car'
+        },
+        {
+          title: '交通',
+          path: '/tourism/traffic'
+        },
+        {
+          title: '宿泊施設',
+          path: '/tourism/hotel'
+        }
+      ]
+    },
+    {
+      title: '教育・文化・スポーツ',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: '幼稚園',
+          path: '/educationsports/kindergarten'
+        },
+        {
+          title: '小学校',
+          path: '/educationsports/primary-schools'
+        },
+        {
+          title: '中学校',
+          path: '/educationsports/junior-high-school'
+        },
+        {
+          title: '高等学校',
+          path: '/educationsports/high-school'
+        },
+        {
+          title: '短大・大学',
+          path: '/educationsports/university'
+        }
+      ]
+    },
+    {
+      title: '行財政',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: '職員',
+          path: '/administrativefinancial/staff'
+        },
+        {
+          title: '財政',
+          path: '/administrativefinancial/finance'
+        },
+        {
+          title: '議会',
+          path: '/administrativefinancial/parliament'
+        }
+      ]
+    },
+    {
+      title: '司法・安全・環境',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: '交通事故',
+          path: '/safetyenvironment/traffic-accident'
+        },
+        {
+          title: '犯罪',
+          path: '/safetyenvironment/crime'
+        },
+        {
+          title: '災害',
+          path: '/safetyenvironment/disaster'
+        },
+        {
+          title: '環境・公害',
+          path: '/safetyenvironment/environment'
+        },
+        {
+          title: '火災・消防',
+          path: '/safetyenvironment/fires'
+        }
+      ]
+    },
+    {
+      title: '医療・社会保障・衛生',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: '医療',
+          path: '/socialsecurity/medical'
+        },
+        {
+          title: '生活保護',
+          path: '/socialsecurity/welfare'
+        }
+      ]
+    },
+    {
+      title: '国際',
+      icon: WeatherPartlyCloudy,
+      children: [
+        {
+          title: '外国人',
+          path: '/international/foreigner'
+        },
+        {
+          title: '入国・出国',
+          path: '/international/immigrant'
+        }
+      ]
+    },
   ]
 }
 
