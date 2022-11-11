@@ -15,6 +15,12 @@ import UserDropdown from 'src/@core/layouts/components/shared-components/UserDro
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
 
+import SelectCustomized from 'src/views/forms/form-elements/select/SelectCustomized'
+
+
+import GovernmentType from 'src/components/GovernmentType'
+import SelectPrefecture from 'src/components/SelectPrefecture'
+
 interface Props {
   hidden: boolean
   settings: Settings
@@ -29,18 +35,8 @@ const AppBarContent = (props: Props) => {
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-        {hidden ? (
-          <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={toggleNavVisibility}>
-            <MenuIcon />
-          </IconButton>
-        ) : null}
-        <Autocomplete hidden={hidden} settings={settings} />
-      </Box>
-      <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-        <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-        <ModeToggler settings={settings} saveSettings={saveSettings} />
-        <NotificationDropdown settings={settings} />
-        <UserDropdown settings={settings} />
+        <GovernmentType />
+        <SelectPrefecture />
       </Box>
     </Box>
   )

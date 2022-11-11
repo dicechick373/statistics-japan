@@ -64,7 +64,7 @@ import '../../styles/globals.css'
 
 // ** Jotai
 import { useAtom } from 'jotai'
-import { areasAtom } from './components/atoms'
+import { areasAtom } from '../components/atoms'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
