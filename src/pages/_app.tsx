@@ -64,7 +64,7 @@ import '../../styles/globals.css'
 
 // ** Jotai
 import { useAtom } from 'jotai'
-import { areasAtom } from '../components/atoms'
+import { areaListAtom } from '../components/atoms'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -120,14 +120,13 @@ const App = (props: ExtendedAppProps) => {
 
   const aclAbilities = Component.acl ?? defaultACLObj
 
-
   // ** set areasAtom
-  const [areas, setAreas] = useAtom(areasAtom)
+  const [areaList, setAreaList] = useAtom(areaListAtom)
   useEffect(() => {
     const fetchAreas = async () => {
       const response = await fetch('/api/areas')
       const data = await response.json()
-      setAreas(data)
+      setAreaList(data)
     }
     fetchAreas()
   }, [])

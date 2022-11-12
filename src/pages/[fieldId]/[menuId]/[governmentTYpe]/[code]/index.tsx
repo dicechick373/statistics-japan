@@ -23,20 +23,36 @@ import RechartsScatterChart from 'src/views/charts/recharts/RechartsScatterChart
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
-// ** Jotai Imports
-import { useAtom } from 'jotai'
-import { governmentTypeAtom,currentAreaCodeAtom } from 'src/components/atoms';
 
 const Recharts = () => {
   // ** Hooks
   const { settings } = useSettings()
 
-  const [governmentType] = useAtom(governmentTypeAtom)
-  const [areaCode] = useAtom(currentAreaCodeAtom)
-  console.log(governmentType,areaCode)
+  const router = useRouter();
 
-  
+  const [menuId, setMenuId] = useState<string>()
+  const [cards, setCards] = useState()
+
+  useEffect(() => {
+    if (router.asPath !== router.route) {
+      setMenuId(router.query.menuId);
+    }
+  }, [router]);
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      const response = await fetch(`/api/cards?menuId=${menuId}`)
+      const data = await response.json()
+      setCards(data)
+    }
+
+    if (menuId) { fetchCards() }
+  }, [menuId])
+
+  console.log(cards)
 
   return (
     <RechartsWrapper>
@@ -52,16 +68,21 @@ const Recharts = () => {
             }
             subtitle={<Typography variant='body2'>Redefined chart library built with React and D3</Typography>}
           />
-          <Grid item xs={12}>
+          {/* {cards.map((option) => (
+            <Grid item xs={12} md={6} key={option.cardId}>
+              <RechartsLineChart direction={settings.direction} />
+            </Grid>
+          ))} */}
+          <Grid item xs={12} md={6}>
             <RechartsLineChart direction={settings.direction} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <RechartsAreaChart direction={settings.direction} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <RechartsScatterChart direction={settings.direction} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={6}>
             <RechartsBarChart direction={settings.direction} />
           </Grid>
           <Grid item xs={12} md={6}>
