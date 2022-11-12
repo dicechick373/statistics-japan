@@ -7,8 +7,14 @@ import FormControl from '@mui/material/FormControl'
 import { useAtom } from 'jotai';
 import { prefCodeAtom, prefListAtom } from 'src/components/atoms';
 
+import { useRouter } from 'next/router';
+
 const SelectPrefecture = () => {
 
+
+  const router = useRouter();
+  const { fieldId, menuId } = router.query
+  console.log({ fieldId, menuId })
 
   /*
   ** 都道府県リスト
@@ -20,17 +26,26 @@ const SelectPrefecture = () => {
   */
   const [prefCode, setPrefCode] = useAtom(prefCodeAtom)
 
+
+  const codeToString = (code: number): string => {
+    return ('0000000000' + code).slice(-2) + '000'
+  }
+
   /*
   ** 選択時の処理
   */
   const handleChange = (event) => {
-    setPrefCode(event.target.value);
+    setPrefCode(event.target.value)
+    router.push(`/${fieldId}/${menuId}/prefecture/${codeToString(event.target.value)}`)
   };
 
   return (
     <div className='demo-space-x'>
-      <FormControl variant='standard'>
-        <Select>
+      <FormControl variant='standard' size="small">
+        <Select
+          value={prefCode}
+          onChange={handleChange}
+        >
           {prefList.map((option) => (
             <MenuItem key={option.prefCode} value={option.prefCode}>
               {option.prefName}

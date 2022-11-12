@@ -1,13 +1,15 @@
 import { atom } from 'jotai'
 
-export const currentArea = atom('28100')
-
-export const currentAreaCodeAtom = atom('28100')
-
 /*
  ** 地域リスト _app.tsxでセット
  */
 export const areasAtom = atom([])
+
+/*
+ ** 選択中の都道府県コード
+ */
+export const currentAreaCodeAtom = atom('28000')
+
 
 /*
  ** 政府区分
