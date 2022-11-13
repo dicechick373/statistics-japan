@@ -21,6 +21,8 @@ import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
 import RechartsRadarChart from 'src/views/charts/recharts/RechartsRadarChart'
 import RechartsScatterChart from 'src/views/charts/recharts/RechartsScatterChart'
 
+import RechartsTimeChart from 'src/components/recharts/RechartsTimeChart'
+
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
 import { useEffect, useState } from 'react'
@@ -34,17 +36,20 @@ const Recharts = () => {
   const router = useRouter();
 
   const [menuId, setMenuId] = useState<string>()
+  const [governmentType, setGovernmentType] = useState<string>()
   const [cards, setCards] = useState()
 
   useEffect(() => {
     if (router.asPath !== router.route) {
       setMenuId(router.query.menuId);
+      setGovernmentType(router.query.governmentType);
     }
   }, [router]);
 
   useEffect(() => {
+    console.log(governmentType)
     const fetchCards = async () => {
-      const response = await fetch(`/api/cards?menuId=${menuId}`)
+      const response = await fetch(`/api/cards?menuId=${menuId}&governmentType=${governmentType}`)
       const data = await response.json()
       setCards(data)
     }
@@ -53,7 +58,6 @@ const Recharts = () => {
   }, [menuId])
 
   console.log(cards)
-
   return (
     <RechartsWrapper>
       <DatePickerWrapper>
@@ -68,11 +72,12 @@ const Recharts = () => {
             }
             subtitle={<Typography variant='body2'>Redefined chart library built with React and D3</Typography>}
           />
-          {/* {cards.map((option) => (
-            <Grid item xs={12} md={6} key={option.cardId}>
-              <RechartsLineChart direction={settings.direction} />
+          {cards && cards.map((c) => (
+            <Grid item xs={12} md={6} key={c.cardId} >
+              <RechartsTimeChart direction={settings.direction} cardId={c.cardId} />
             </Grid>
-          ))} */}
+          ))}
+
           <Grid item xs={12} md={6}>
             <RechartsLineChart direction={settings.direction} />
           </Grid>

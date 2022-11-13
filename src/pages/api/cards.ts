@@ -6,14 +6,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const response = await fetch("https://storage.googleapis.com/statistics-hyogo/contents/statistics-cards.json")
   const cards = await response.json()
 
-  if (req.query.menuId) {
-    const menuId = req.query.menuId
-    console.log(menuId)
-    res.status(200).json(cards.filter((f) => f.menuId === menuId))
-  } else {
-    res.status(200).json(cards)
-  }
+  const menuId = req.query.menuId
+  const governmentType = req.query.governmentType
 
 
+  res.status(200).json(cards.filter((f) => f.menuId === menuId)
+    .filter((f) => f.governmentType === governmentType))
+
+  // if (req.query.menuId) {
+  //   const menuId = req.query.menuId
+  //   console.log(menuId)
+  //   res.status(200).json(cards.filter((f) => f.menuId === menuId))
+  // } else {
+  //   res.status(200).json(cards)
+  // }
 
 }

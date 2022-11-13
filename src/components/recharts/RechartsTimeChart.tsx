@@ -51,7 +51,10 @@ const CustomTooltip = (props: TooltipProps<any, any>) => {
   return null
 }
 
-const RechartsTimeChart = ({ direction }: Props) => {
+const RechartsTimeChart = ({ direction, cardId }: Props) => {
+
+  console.log(cardId)
+
   return (
     <Card>
       <CardHeader
