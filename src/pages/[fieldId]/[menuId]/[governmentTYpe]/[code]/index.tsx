@@ -34,30 +34,24 @@ const Recharts = () => {
   const { settings } = useSettings()
 
   const router = useRouter();
-
-  const [menuId, setMenuId] = useState<string>()
-  const [governmentType, setGovernmentType] = useState<string>()
   const [cards, setCards] = useState()
 
-  useEffect(() => {
-    if (router.asPath !== router.route) {
-      setMenuId(router.query.menuId);
-      setGovernmentType(router.query.governmentType);
-    }
-  }, [router]);
+  const fetchCard = async () => {
+    if (router.isReady) {
+      const menuId = router.query.menuId
+      const governmentType = router.query.governmentType
 
-  useEffect(() => {
-    console.log(governmentType)
-    const fetchCards = async () => {
       const response = await fetch(`/api/cards?menuId=${menuId}&governmentType=${governmentType}`)
       const data = await response.json()
       setCards(data)
     }
+  }
 
-    if (menuId) { fetchCards() }
-  }, [menuId])
+  useEffect(() => {
+    fetchCard()
+  }, [router.query])
 
-  console.log(cards)
+
   return (
     <RechartsWrapper>
       <DatePickerWrapper>
