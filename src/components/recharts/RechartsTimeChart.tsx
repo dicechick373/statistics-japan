@@ -13,6 +13,8 @@ import ArrowUp from 'mdi-material-ui/ArrowUp'
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 interface Props {
   direction: 'ltr' | 'rtl'
@@ -51,9 +53,32 @@ const CustomTooltip = (props: TooltipProps<any, any>) => {
   return null
 }
 
-const RechartsTimeChart = ({ direction, cardId }: Props) => {
+const RechartsTimeChart = ({ direction, card }: Props) => {
 
-  console.log(cardId)
+  const router = useRouter();
+  const [test, setTest] = useState()
+
+  const fetchData = async () => {
+    if (router.isReady) {
+      const params = {
+        cardId: card.cardId,
+        governmentType: router.query.governmentType,
+        code: router.query.code,
+      }
+      const urlSearchParam = new URLSearchParams(params).toString();
+      const response = await fetch(`/api/data?${urlSearchParam}`)
+      const data = await response.json()
+      setTest(data)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const categories = card.categories
+
+  console.log(card)
 
   return (
     <Card>

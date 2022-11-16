@@ -68,7 +68,7 @@ const Recharts = () => {
           />
           {cards && cards.map((c) => (
             <Grid item xs={12} md={6} key={c.cardId} >
-              <RechartsTimeChart direction={settings.direction} cardId={c.cardId} />
+              <RechartsTimeChart direction={settings.direction} card={c} />
             </Grid>
           ))}
 
