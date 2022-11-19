@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText'
 import InputLabel from '@mui/material/InputLabel'
 
 // ** Next Imports
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const ITEM_HEIGHT = 36
 const ITEM_PADDING_TOP = 8
@@ -20,23 +20,8 @@ const MenuProps = {
     }
   }
 }
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder'
-]
 
-
-const SelectCategories = ({ categories, setSelectedCategories }: Props) => {
-
-  const [personName, setPersonName] = useState<string[]>([])
+const SelectCategories = ({ categories, selectedCategories, setSelectedCategories }: Props) => {
 
   useEffect(() => {
     const data = categories.filter((f) => f.isSelect === 'TRUE').map((d) => d.categoryName)
@@ -47,7 +32,6 @@ const SelectCategories = ({ categories, setSelectedCategories }: Props) => {
   ** 選択時の処理
   */
   const handleChange = (event: SelectChangeEvent<string[]>) => {
-    setPersonName(event.target.value as string[])
     setSelectedCategories(event.target.value as string[])
   }
 
@@ -58,16 +42,16 @@ const SelectCategories = ({ categories, setSelectedCategories }: Props) => {
         <Select
           multiple
           label='Tag'
-          value={personName}
+          value={selectedCategories}
           MenuProps={MenuProps}
           onChange={handleChange}
           id='demo-multiple-checkbox'
           labelId='demo-multiple-checkbox-label'
           renderValue={selected => (selected as unknown as string[]).join(', ')}
         >
-          {names.map(name => (
+          {categories.map((d)=>d.categoryName).map(name => (
             <MenuItem key={name} value={name}>
-              <Checkbox checked={personName.indexOf(name) > -1} />
+              <Checkbox checked={selectedCategories.indexOf(name) > -1} />
               <ListItemText primary={name} />
             </MenuItem>
           ))}

@@ -70,10 +70,6 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
 
   const categories = card.categories
 
-  // console.log(categories)
-  console.log(selectedCategories)
-
-
   return (
     <Card>
       <CardHeader
@@ -111,7 +107,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
       <CardContent>
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12}>
-            <SelectCategories categories={categories} setSelectedCategories = {setSelectedCategories}/>
+            <SelectCategories categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
           </Grid>
           <Grid item xs={12} sm={12}>
             <Box sx={{ height: 350 }}>
@@ -122,8 +118,8 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
                   <XAxis dataKey='name' reversed={direction === 'rtl'} />
                   <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
                   <Tooltip content={CustomTooltip} />
-                  {categories.map((c) => (
-                    <Line dataKey={c.categoryName} stroke='#ff9f43' strokeWidth={3} key={c}/>
+                  {selectedCategories.map((c) => (
+                    <Line dataKey={c}  key={c} />
 
                   ))}
                 </LineChart>
