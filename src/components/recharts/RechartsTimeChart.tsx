@@ -13,30 +13,14 @@ import ArrowUp from 'mdi-material-ui/ArrowUp'
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 interface Props {
   direction: 'ltr' | 'rtl'
 }
 
-const data = [
-  { pv: 280, name: '7/12' },
-  { pv: 200, name: '8/12' },
-  { pv: 220, name: '9/12' },
-  { pv: 180, name: '10/12' },
-  { pv: 270, name: '11/12' },
-  { pv: 250, name: '12/12' },
-  { pv: 70, name: '13/12' },
-  { pv: 90, name: '14/12' },
-  { pv: 200, name: '15/12' },
-  { pv: 150, name: '16/12' },
-  { pv: 160, name: '17/12' },
-  { pv: 100, name: '18/12' },
-  { pv: 150, name: '19/12' },
-  { pv: 100, name: '20/12' },
-  { pv: 50, name: '21/12' }
-]
+
 
 const CustomTooltip = (props: TooltipProps<any, any>) => {
   // ** Props
@@ -72,13 +56,12 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchData()
-  }, [])
+  }, [router.query])
 
   const categories = card.categories
 
-  console.log(card)
 
   return (
     <Card>
@@ -115,12 +98,15 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
       <CardContent>
         <Box sx={{ height: 350 }}>
           <ResponsiveContainer>
-            <LineChart height={350} data={data} style={{ direction }} margin={{ left: -20 }}>
+            <LineChart height={350} data={test} style={{ direction }} margin={{ left: -20 }}>
               <CartesianGrid />
               <XAxis dataKey='name' reversed={direction === 'rtl'} />
               <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
               <Tooltip content={CustomTooltip} />
-              <Line dataKey='pv' stroke='#ff9f43' strokeWidth={3} />
+              {categories.map((c) => (
+                <Line dataKey={c.categoryName} stroke='#ff9f43' strokeWidth={3} />
+
+              ))}
             </LineChart>
           </ResponsiveContainer>
         </Box>

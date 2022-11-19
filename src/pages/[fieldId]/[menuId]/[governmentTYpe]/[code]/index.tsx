@@ -14,18 +14,11 @@ import RechartsWrapper from 'src/@core/styles/libs/recharts'
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 // ** Demo Components Imports
-import RechartsBarChart from 'src/views/charts/recharts/RechartsBarChart'
-import RechartsPieChart from 'src/views/charts/recharts/RechartsPieChart'
-import RechartsLineChart from 'src/views/charts/recharts/RechartsLineChart'
-import RechartsAreaChart from 'src/views/charts/recharts/RechartsAreaChart'
-import RechartsRadarChart from 'src/views/charts/recharts/RechartsRadarChart'
-import RechartsScatterChart from 'src/views/charts/recharts/RechartsScatterChart'
-
 import RechartsTimeChart from 'src/components/recharts/RechartsTimeChart'
 
 // ** Third Party Styles Imports
 import 'react-datepicker/dist/react-datepicker.css'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 
@@ -47,7 +40,7 @@ const Recharts = () => {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchCard()
   }, [router.query])
 
@@ -56,40 +49,11 @@ const Recharts = () => {
     <RechartsWrapper>
       <DatePickerWrapper>
         <Grid container spacing={6}>
-          <PageHeader
-            title={
-              <Typography variant='h5'>
-                <Link href='https://github.com/recharts/recharts' target='_blank'>
-                  Recharts
-                </Link>
-              </Typography>
-            }
-            subtitle={<Typography variant='body2'>Redefined chart library built with React and D3</Typography>}
-          />
           {cards && cards.map((c) => (
             <Grid item xs={12} md={6} key={c.cardId} >
               <RechartsTimeChart direction={settings.direction} card={c} />
             </Grid>
           ))}
-
-          <Grid item xs={12} md={6}>
-            <RechartsLineChart direction={settings.direction} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsAreaChart direction={settings.direction} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsScatterChart direction={settings.direction} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsBarChart direction={settings.direction} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsRadarChart />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsPieChart />
-          </Grid>
         </Grid>
       </DatePickerWrapper>
     </RechartsWrapper>
