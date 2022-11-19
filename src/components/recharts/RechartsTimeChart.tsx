@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 // ** Third Party Imports
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, Brush } from 'recharts'
 
 // ** Icons Imports
 import ArrowUp from 'mdi-material-ui/ArrowUp'
@@ -70,6 +70,8 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
 
   const categories = card.categories
 
+  console.log(card)
+
   return (
     <Card>
       <CardHeader
@@ -115,11 +117,12 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
               <ResponsiveContainer>
                 <LineChart height={350} data={test} style={{ direction }} margin={{ left: -20 }}>
                   <CartesianGrid />
-                  <XAxis dataKey='name' reversed={direction === 'rtl'} />
+                  <XAxis dataKey='time' reversed={direction === 'rtl'} />
                   <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
+                  <Brush dataKey='time' startIndex={4} endIndex={10}/>
                   <Tooltip content={CustomTooltip} />
                   {selectedCategories.map((c) => (
-                    <Line dataKey={c}  key={c} />
+                    <Line dataKey={c} key={c} />
 
                   ))}
                 </LineChart>
