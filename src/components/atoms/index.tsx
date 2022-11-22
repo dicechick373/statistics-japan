@@ -6,9 +6,10 @@ import { atom } from 'jotai'
 export const areaListAtom = atom([])
 
 /*
- ** 選択中の都道府県コード
+ ** 選択中の地域コード
  */
 export const currentAreaCodeAtom = atom('28000')
+
 
 
 /*

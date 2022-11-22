@@ -26,10 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     } else {
       pre.push({ time: cur.timeCode })
     }
-
     const p = pre.findIndex(({ time }) => time === cur.timeCode)
     pre[p][cur.categoryName] = cur.value
-
+    
     return pre
   }, [])
 

@@ -17,9 +17,11 @@ import CustomChip from 'src/@core/components/mui/chip'
 import { useLayoutEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import SelectCategories from '../SelectCategories'
+import { CardContents } from 'src/types/common';
 
 interface Props {
   direction: 'ltr' | 'rtl'
+  card: CardContents
 }
 
 const CustomTooltip = (props: TooltipProps<any, any>) => {
@@ -47,9 +49,12 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   /*
   ** state
   */
-  const [test, setTest] = useState()
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 
+  /*
+  ** chartData
+  */
+  const [chartData, setChartData] = useState()
   const fetchData = async () => {
     if (router.isReady) {
       const params = {
@@ -60,12 +65,28 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
       const urlSearchParam = new URLSearchParams(params).toString();
       const response = await fetch(`/api/data?${urlSearchParam}`)
       const data = await response.json()
-      setTest(data)
+      setChartData(data)
     }
   }
 
+  /*
+  ** cardTitle
+  */
+  const [cardTitle, setCardTitle] = useState<string>()
+  const fetchArea = async () => {
+    if (router.isReady) {
+      const response = await fetch(`/api/areas?areaCode=${router.query.code}`)
+      const data = await response.json()
+      setCardTitle(`${data.areaName}${card.cardTitle.replace('都道府県', '').replace('市区町村', '')}`)
+    }
+  }
+
+  /*
+  ** useLayoutEffect
+  */
   useLayoutEffect(() => {
     fetchData()
+    fetchArea()
   }, [router.query])
 
   const categories = card.categories
@@ -75,7 +96,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   return (
     <Card>
       <CardHeader
-        title='Balance'
+        title={cardTitle}
         titleTypographyProps={{ variant: 'h6' }}
         subheader='Commercial networks & enterprises'
         subheaderTypographyProps={{ variant: 'caption', sx: { color: 'text.disabled' } }}
@@ -115,11 +136,11 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
             <Box sx={{ height: 350 }}>
 
               <ResponsiveContainer>
-                <LineChart height={350} data={test} style={{ direction }} margin={{ left: -20 }}>
+                <LineChart height={350} data={chartData} style={{ direction }} margin={{ left: -20 }}>
                   <CartesianGrid />
                   <XAxis dataKey='time' reversed={direction === 'rtl'} />
                   <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
-                  <Brush dataKey='time' startIndex={4} endIndex={10}/>
+                  <Brush dataKey='time' startIndex={4} endIndex={10} />
                   <Tooltip content={CustomTooltip} />
                   {selectedCategories.map((c) => (
                     <Line dataKey={c} key={c} />

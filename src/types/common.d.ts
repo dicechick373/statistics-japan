@@ -44,7 +44,7 @@ export type Menu = {
   menuTitle: string
 }
 
-export type Card = {
+export type CardContents = {
   cardId: string
   cardIndex: string
   cardTitle: string
