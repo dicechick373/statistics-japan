@@ -336,44 +336,6 @@ const Customizer = () => {
               Menu
             </Typography>
 
-            {/* Menu Layout */}
-            <Box sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 4 }}>
-              <Typography>Menu Layout</Typography>
-              <RadioGroup
-                row
-                value={layout}
-                onChange={e => {
-                  saveSettings({
-                    ...settings,
-                    layout: e.target.value as Settings['layout'],
-                    lastLayout: e.target.value as Settings['lastLayout']
-                  })
-                }}
-                sx={{ '& .MuiFormControlLabel-label': { fontSize: '.875rem', color: 'text.secondary' } }}
-              >
-                <FormControlLabel value='vertical' label='Vertical' control={<Radio />} />
-                <FormControlLabel value='horizontal' label='Horizontal' control={<Radio />} />
-              </RadioGroup>
-            </Box>
-
-            {/* Menu Toggle */}
-            {navHidden || layout === 'horizontal' ? null : (
-              <Box sx={{ mb: 4 }}>
-                <Typography>Menu Toggle</Typography>
-                <RadioGroup
-                  row
-                  value={verticalNavToggleType}
-                  onChange={e =>
-                    handleChange('verticalNavToggleType', e.target.value as Settings['verticalNavToggleType'])
-                  }
-                  sx={{ '& .MuiFormControlLabel-label': { fontSize: '.875rem', color: 'text.secondary' } }}
-                >
-                  <FormControlLabel value='accordion' label='Accordion' control={<Radio />} />
-                  <FormControlLabel value='collapse' label='Collapse' control={<Radio />} />
-                </RadioGroup>
-              </Box>
-            )}
-
             {/* Menu Collapsed */}
             {navHidden || layout === 'horizontal' ? null : (
               <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

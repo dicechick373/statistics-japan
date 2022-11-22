@@ -23,11 +23,11 @@ const AppBarContent = (props: Props) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Autocomplete hidden={hidden} settings={settings} />
-      <LanguageDropdown settings={settings} saveSettings={saveSettings} />
-      <ModeToggler settings={settings} saveSettings={saveSettings} />
-      <NotificationDropdown settings={settings} />
-      <UserDropdown settings={settings} />
+      {/* <Autocomplete hidden={hidden} settings={settings} /> */}
+      {/* <LanguageDropdown settings={settings} saveSettings={saveSettings} /> */}
+      {/* <ModeToggler settings={settings} saveSettings={saveSettings} /> */}
+      {/* <NotificationDropdown settings={settings} /> */}
+      {/* <UserDropdown settings={settings} /> */}
     </Box>
   )
 }
