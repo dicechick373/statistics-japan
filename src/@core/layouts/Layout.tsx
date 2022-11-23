@@ -12,6 +12,8 @@ const Layout = (props: LayoutProps) => {
   // ** Props
   const { hidden, children, settings, saveSettings } = props
 
+  console.log(props)
+
   // ** Ref
   const isCollapsed = useRef(settings.navCollapsed)
 

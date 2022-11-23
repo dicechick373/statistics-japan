@@ -1,6 +1,6 @@
 // ** React Imports
 import { ReactNode, useEffect } from 'react'
-
+import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
@@ -154,7 +154,9 @@ const App = (props: ExtendedAppProps) => {
                     <WindowWrapper>
                       <Guard authGuard={authGuard} guestGuard={guestGuard}>
                         <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
-                          {getLayout(<Component {...pageProps} />)}
+
+                        {getLayout(<Component {...pageProps} />)}
+
                         </AclGuard>
                       </Guard>
                     </WindowWrapper>

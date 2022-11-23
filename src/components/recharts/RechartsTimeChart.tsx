@@ -91,7 +91,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
 
   const categories = card.categories
 
-  console.log(card)
+  // console.log(card)
 
   return (
     <Card>
