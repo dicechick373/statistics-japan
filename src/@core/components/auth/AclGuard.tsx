@@ -17,18 +17,14 @@ import { buildAbilityFor } from 'src/configs/acl'
 import NotAuthorized from 'src/pages/401'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Hooks
-// import { useAuth } from 'src/hooks/useAuth'
-
 interface AclGuardProps {
   children: ReactNode
-  guestGuard: boolean
   aclAbilities: ACLObj
 }
 
 const AclGuard = (props: AclGuardProps) => {
   // ** Props
-  const { aclAbilities, children, guestGuard } = props
+  const { aclAbilities, children } = props
 
   const [ability, setAbility] = useState<AppAbility | undefined>(undefined)
 
@@ -36,7 +32,7 @@ const AclGuard = (props: AclGuardProps) => {
   const router = useRouter()
 
   // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
-  if (guestGuard || router.route === '/404' || router.route === '/500' || router.route === '/') {
+  if (router.route === '/404' || router.route === '/500' || router.route === '/') {
     return <>{children}</>
   }
 

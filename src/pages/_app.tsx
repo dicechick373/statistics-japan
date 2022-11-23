@@ -1,6 +1,6 @@
 // ** React Imports
 import { ReactNode, useEffect } from 'react'
-import BlankLayout from 'src/@core/layouts/BlankLayout'
+
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
@@ -33,12 +33,7 @@ import { Toaster } from 'react-hot-toast'
 import UserLayout from 'src/layouts/UserLayout'
 import AclGuard from 'src/@core/components/auth/AclGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
-import AuthGuard from 'src/@core/components/auth/AuthGuard'
-import GuestGuard from 'src/@core/components/auth/GuestGuard'
 import WindowWrapper from 'src/@core/components/window-wrapper'
-
-// ** Spinner Import
-import Spinner from 'src/@core/components/spinner'
 
 // ** Contexts
 import { AuthProvider } from 'src/context/AuthContext'
@@ -72,14 +67,7 @@ type ExtendedAppProps = AppProps & {
   emotionCache: EmotionCache
 }
 
-type GuardProps = {
-  authGuard: boolean
-  guestGuard: boolean
-  children: ReactNode
-}
-
 const clientSideEmotionCache = createEmotionCache()
-
 
 
 // ** Pace Loader
@@ -95,16 +83,6 @@ if (themeConfig.routingLoader) {
   })
 }
 
-const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
-  if (guestGuard) {
-    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
-  } else if (!guestGuard && !authGuard) {
-    return <>{children}</>
-  } else {
-    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
-  }
-}
-
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
@@ -113,10 +91,6 @@ const App = (props: ExtendedAppProps) => {
   const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
   const setConfig = Component.setConfig ?? undefined
-
-  const authGuard = Component.authGuard ?? true
-
-  const guestGuard = Component.guestGuard ?? false
 
   const aclAbilities = Component.acl ?? defaultACLObj
 
@@ -152,7 +126,7 @@ const App = (props: ExtendedAppProps) => {
                 return (
                   <ThemeComponent settings={settings}>
                     <WindowWrapper>
-                      <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
+                      <AclGuard aclAbilities={aclAbilities}>
                         {getLayout(<Component {...pageProps} />)}
                       </AclGuard>
                     </WindowWrapper>
