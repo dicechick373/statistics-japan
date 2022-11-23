@@ -337,7 +337,7 @@ const Customizer = () => {
             </Typography>
 
             {/* Menu Layout */}
-            <Box sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 4 }}>
+            {/* <Box sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 4 }}>
               <Typography>Menu Layout</Typography>
               <RadioGroup
                 row
@@ -354,10 +354,10 @@ const Customizer = () => {
                 <FormControlLabel value='vertical' label='Vertical' control={<Radio />} />
                 <FormControlLabel value='horizontal' label='Horizontal' control={<Radio />} />
               </RadioGroup>
-            </Box>
+            </Box> */}
 
             {/* Menu Toggle */}
-            {navHidden || layout === 'horizontal' ? null : (
+            {/* {navHidden || layout === 'horizontal' ? null : (
               <Box sx={{ mb: 4 }}>
                 <Typography>Menu Toggle</Typography>
                 <RadioGroup
@@ -372,7 +372,7 @@ const Customizer = () => {
                   <FormControlLabel value='collapse' label='Collapse' control={<Radio />} />
                 </RadioGroup>
               </Box>
-            )}
+            )} */}
 
             {/* Menu Collapsed */}
             {navHidden || layout === 'horizontal' ? null : (
