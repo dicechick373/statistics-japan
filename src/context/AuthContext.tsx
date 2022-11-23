@@ -15,7 +15,14 @@ import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataT
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
-  user: null,
+  user: {
+    id: 1,
+    role: 'admin',
+    password: 'admin',
+    fullName: 'John Doe',
+    username: 'johndoe',
+    email: 'admin@materialize.com'
+  },
   loading: true,
   setUser: () => null,
   setLoading: () => Boolean,
