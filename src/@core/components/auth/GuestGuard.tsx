@@ -5,7 +5,7 @@ import { ReactNode, ReactElement, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Hooks Import
-import { useAuth } from 'src/hooks/useAuth'
+// import { useAuth } from 'src/hooks/useAuth'
 
 interface GuestGuardProps {
   children: ReactNode
@@ -13,8 +13,8 @@ interface GuestGuardProps {
 }
 
 const GuestGuard = (props: GuestGuardProps) => {
-  const { children, fallback } = props
-  const auth = useAuth()
+  const { children } = props
+
   const router = useRouter()
 
   useEffect(() => {
@@ -25,12 +25,8 @@ const GuestGuard = (props: GuestGuardProps) => {
     if (window.localStorage.getItem('userData')) {
       router.replace('/')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.route])
 
-  if (auth.loading || (!auth.loading && auth.user !== null)) {
-    return fallback
-  }
 
   return <>{children}</>
 }
