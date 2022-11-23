@@ -18,7 +18,7 @@ import NotAuthorized from 'src/pages/401'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
+// import { useAuth } from 'src/hooks/useAuth'
 
 interface AclGuardProps {
   children: ReactNode
@@ -33,7 +33,6 @@ const AclGuard = (props: AclGuardProps) => {
   const [ability, setAbility] = useState<AppAbility | undefined>(undefined)
 
   // ** Hooks
-  // const auth = useAuth()
   const router = useRouter()
 
   // If guestGuard is true and user is not logged in or its an error page, render the page without checking access
