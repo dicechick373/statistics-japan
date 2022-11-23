@@ -13,6 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   res.status(200).json(cards.filter((f) => f.menuId === menuId)
     .filter((f) => f.governmentType === governmentType))
 
+    res.status(200).json(cards.filter((f) => f.menuId === menuId)
+    .filter((f) => f.governmentType === governmentType))
+
   // if (req.query.menuId) {
   //   const menuId = req.query.menuId
   //   console.log(menuId)

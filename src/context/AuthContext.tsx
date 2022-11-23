@@ -15,7 +15,20 @@ import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataT
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
-  user: null,
+  user: {
+    id: 1,
+    fullName: 'Galen Slixby',
+    company: 'Yotz PVT LTD',
+    role: 'editor',
+    username: 'gslixby0',
+    country: 'El Salvador',
+    contact: '(479) 232-9151',
+    email: 'gslixby0@abc.net.au',
+    currentPlan: 'enterprise',
+    status: 'inactive',
+    avatar: '',
+    avatarColor: 'primary'
+  },
   loading: true,
   setUser: () => null,
   setLoading: () => Boolean,
