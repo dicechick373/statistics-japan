@@ -34,11 +34,8 @@ const Recharts = () => {
       const menuId = router.query.menuId
       const governmentType = router.query.governmentType
 
-      console.log(router.query)
-      console.log({menuId,governmentType})
       const response = await fetch(`/api/cards?menuId=${menuId}&governmentType=${governmentType}`)
       const data = await response.json()
-      console.log(data)
       setCards(data)
     }
   }
@@ -47,7 +44,6 @@ const Recharts = () => {
     fetchCard()
   }, [router.query])
 
-  // console.log(cards)
 
   return (
     <RechartsWrapper>
