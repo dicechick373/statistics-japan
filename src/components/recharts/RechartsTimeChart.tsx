@@ -24,20 +24,20 @@ interface Props {
   card: CardContents
 }
 
-const CustomTooltip = (props: TooltipProps<any, any>) => {
-  // ** Props
-  const { active, payload } = props
+// const CustomTooltip = (props: TooltipProps<any, any>) => {
+//   // ** Props
+//   const { active, payload } = props
 
-  if (active && payload) {
-    return (
-      <div className='recharts-custom-tooltip'>
-        <span>{`${payload[0].value}%`}</span>
-      </div>
-    )
-  }
+//   if (active && payload) {
+//     return (
+//       <div className='recharts-custom-tooltip'>
+//         <span>{`${payload[0].value}%`}</span>
+//       </div>
+//     )
+//   }
 
-  return null
-}
+//   return null
+// }
 
 const RechartsTimeChart = ({ direction, card }: Props) => {
 
@@ -141,7 +141,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
                   <XAxis dataKey='time' reversed={direction === 'rtl'} />
                   <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
                   <Brush dataKey='time' startIndex={4} endIndex={10} />
-                  <Tooltip content={CustomTooltip} />
+                  {/* <Tooltip content={CustomTooltip} /> */}
                   {selectedCategories.map((c) => (
                     <Line dataKey={c} key={c} />
 
