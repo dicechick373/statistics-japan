@@ -11,15 +11,7 @@ import Layout from 'src/@core/layouts/Layout'
 
 // ** Navigation Imports
 import VerticalNavItems from 'src/navigation/vertical'
-import HorizontalNavItems from 'src/navigation/horizontal'
-
-// ** Component Import
-// Uncomment the below line (according to the layout type) when using server-side menu
-// import ServerSideVerticalNavItems from './components/vertical/ServerSideNavItems'
-// import ServerSideHorizontalNavItems from './components/horizontal/ServerSideNavItems'
-
 import VerticalAppBarContent from './components/vertical/AppBarContent'
-import HorizontalAppBarContent from './components/horizontal/AppBarContent'
 
 // ** Hook Import
 import { useSettings } from 'src/@core/hooks/useSettings'
@@ -47,39 +39,20 @@ const UserLayout = ({ children }: Props) => {
       hidden={hidden}
       settings={settings}
       saveSettings={saveSettings}
-      {...(settings.layout === 'horizontal'
-        ? {
-            // ** Navigation Items
-            horizontalNavItems: HorizontalNavItems(),
-
-            // Uncomment the below line when using server-side menu in horizontal layout and comment the above line
-            // horizontalNavItems: ServerSideHorizontalNavItems(),
-
-            // ** AppBar Content
-            horizontalAppBarContent: () => (
-              <HorizontalAppBarContent hidden={hidden} settings={settings} saveSettings={saveSettings} />
-            )
-          }
-        : {
-            // ** Navigation Items
-            verticalNavItems: VerticalNavItems(),
-
-            // Uncomment the below line when using server-side menu in vertical layout and comment the above line
-            // verticalNavItems: ServerSideVerticalNavItems(),
-
-            // ** AppBar Content
-            verticalAppBarContent: props => (
-              <VerticalAppBarContent
-                hidden={hidden}
-                settings={settings}
-                saveSettings={saveSettings}
-                toggleNavVisibility={props.toggleNavVisibility}
-              />
-            )
-          })}
+      {...({
+        verticalNavItems: VerticalNavItems(),
+        verticalAppBarContent: props => (
+          <VerticalAppBarContent
+            hidden={hidden}
+            settings={settings}
+            saveSettings={saveSettings}
+            toggleNavVisibility={props.toggleNavVisibility}
+          />
+        )
+      })}
     >
       {children}
-      
+
     </Layout>
   )
 }
