@@ -23,7 +23,7 @@ import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Custom Components Imports
 import UserIcon from 'src/layouts/components/UserIcon'
-import Translations from 'src/layouts/components/Translations'
+// import Translations from 'src/layouts/components/Translations'
 import CanViewNavLink from 'src/layouts/components/acl/CanViewNavLink'
 
 // ** Utils
@@ -197,7 +197,7 @@ const VerticalNavLink = ({
                   noWrap: true
                 })}
               >
-                <Translations text={item.title} />
+                {item.title}
               </Typography>
               {item.badgeContent ? (
                 <Chip

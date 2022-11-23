@@ -9,7 +9,7 @@ import { NavSectionTitle } from 'src/@core/layouts/types'
 import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Custom Components Imports
-import Translations from 'src/layouts/components/Translations'
+// import Translations from 'src/layouts/components/Translations'
 import CanViewNavSectionTitle from 'src/layouts/components/acl/CanViewNavSectionTitle'
 
 interface Props {
@@ -96,15 +96,15 @@ const VerticalNavSectionTitle = (props: Props) => {
             ...(navCollapsed && !navHover
               ? { width: 22 }
               : {
-                  width: '100%',
-                  '&:before': { top: 7, transform: 'none', width: theme.spacing(4) },
-                  '& .MuiDivider-wrapper': { px: 4, fontSize: '0.75rem', letterSpacing: '0.21px' }
-                })
+                width: '100%',
+                '&:before': { top: 7, transform: 'none', width: theme.spacing(4) },
+                '& .MuiDivider-wrapper': { px: 4, fontSize: '0.75rem', letterSpacing: '0.21px' }
+              })
           }}
         >
           {navCollapsed && !navHover ? null : (
             <Typography noWrap variant='caption' sx={{ ...conditionalColor() }}>
-              <Translations text={item.sectionTitle} />
+              {item.sectionTitle}
             </Typography>
           )}
         </Divider>

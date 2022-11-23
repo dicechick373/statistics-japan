@@ -223,7 +223,7 @@ const HorizontalNavGroup = (props: Props) => {
                     />
                   </ListItemIcon>
                   <Typography {...(menuTextTruncate && { noWrap: true })}>
-                    <Translations text={item.title} />
+                    {item.title}
                   </Typography>
                 </Box>
                 <Box sx={{ ml: 1.5, display: 'flex', alignItems: 'center' }}>
