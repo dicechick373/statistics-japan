@@ -11,7 +11,6 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
-    "@auth0/auth0-react": "1.10.1",
     "@aws-amplify/auth": "4.5.3",
     "@aws-amplify/ui-react": "2.16.1",
     "@casl/ability": "5.4.3",
