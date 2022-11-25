@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -22,7 +22,6 @@ import LanguageJavascript from 'mdi-material-ui/LanguageJavascript'
 import LanguageTypescript from 'mdi-material-ui/LanguageTypescript'
 
 // ** Third Party Components
-import Prism from 'prismjs'
 import toast from 'react-hot-toast'
 
 // ** Types
@@ -42,11 +41,6 @@ const CardSnippet = (props: CardSnippetProps) => {
   // ** Hooks
   const clipboard = useClipboard()
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
-
-  // ** Highlight code on mount
-  useEffect(() => {
-    Prism.highlightAll()
-  }, [showCode, tabValue])
 
   const codeToCopy = () => {
     if (code.tsx !== null && tabValue === 'tsx') {
