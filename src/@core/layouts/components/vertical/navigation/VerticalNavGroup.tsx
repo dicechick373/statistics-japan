@@ -34,8 +34,6 @@ import { Settings } from 'src/@core/context/settingsContext'
 // ** Custom Components Imports
 import VerticalNavItems from './VerticalNavItems'
 import UserIcon from 'src/layouts/components/UserIcon'
-// import Translations from 'src/layouts/components/Translations'
-import CanViewNavGroup from 'src/layouts/components/acl/CanViewNavGroup'
 
 interface Props {
   item: NavGroup
@@ -255,7 +253,6 @@ const VerticalNavGroup = (props: Props) => {
   }
 
   return (
-    <CanViewNavGroup navGroup={item}>
       <Fragment>
         <ListItem
           disablePadding
@@ -358,7 +355,6 @@ const VerticalNavGroup = (props: Props) => {
           </Collapse>
         </ListItem>
       </Fragment>
-    </CanViewNavGroup>
   )
 }
 

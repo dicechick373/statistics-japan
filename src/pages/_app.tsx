@@ -27,7 +27,6 @@ import { Toaster } from 'react-hot-toast'
 
 // ** Component Imports
 import UserLayout from 'src/layouts/UserLayout'
-import AclGuard from 'src/@core/components/auth/AclGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
 import WindowWrapper from 'src/@core/components/window-wrapper'
 
@@ -99,7 +98,7 @@ const App = (props: ExtendedAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
+        <title>{`${themeConfig.templateName} - 統計で見る兵庫県のすがた`}</title>
         <meta
           name='description'
           content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
@@ -115,9 +114,7 @@ const App = (props: ExtendedAppProps) => {
               return (
                 <ThemeComponent settings={settings}>
                   <WindowWrapper>
-                    <AclGuard aclAbilities={aclAbilities}>
-                      {getLayout(<Component {...pageProps} />)}
-                    </AclGuard>
+                    {getLayout(<Component {...pageProps} />)}
                   </WindowWrapper>
                   <ReactHotToast>
                     <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
