@@ -30,7 +30,7 @@ const SelectCity = () => {
   */
   const handleChange = (event) => {
     setCityCode(event.target.value)
-    router.push(`/${fieldId}/${menuId}/city/${event.target.value}`)
+    router.push(`/city/${event.target.value}/${fieldId}/${menuId}`)
   };
 
   return (

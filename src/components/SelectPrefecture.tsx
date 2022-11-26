@@ -43,7 +43,7 @@ const SelectPrefecture = () => {
     const newPrefCode = event.target.value
     setPrefCode(newPrefCode)
     setCityCode(initCityCode(newPrefCode))
-    router.push(`/${fieldId}/${menuId}/prefecture/${codeToString(event.target.value)}`)
+    router.push(`/prefecture/${codeToString(event.target.value)}/${fieldId}/${menuId}`)
   };
 
   return (

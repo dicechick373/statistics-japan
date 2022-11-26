@@ -76,6 +76,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   useLayoutEffect(() => {
     fetchData()
     fetchArea()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
   const categories = card.categories

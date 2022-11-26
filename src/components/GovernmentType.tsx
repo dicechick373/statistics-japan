@@ -36,8 +36,8 @@ const GovernmentType = () => {
     setGovernmentType(newGovernmentType)
 
     const url = newGovernmentType === 'prefecture'
-      ? `/${fieldId}/${menuId}/prefecture/${codeToString(prefCode)}`
-      : `/${fieldId}/${menuId}/city/${cityCode}`
+      ? `/prefecture/${codeToString(prefCode)}/${fieldId}/${menuId}`
+      : `/city/${cityCode}/${fieldId}/${menuId}`
 
     router.push(url)
 
