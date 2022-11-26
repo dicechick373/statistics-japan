@@ -24,21 +24,6 @@ interface Props {
   card: CardContents
 }
 
-// const CustomTooltip = (props: TooltipProps<any, any>) => {
-//   // ** Props
-//   const { active, payload } = props
-
-//   if (active && payload) {
-//     return (
-//       <div className='recharts-custom-tooltip'>
-//         <span>{`${payload[0].value}%`}</span>
-//       </div>
-//     )
-//   }
-
-//   return null
-// }
-
 const RechartsTimeChart = ({ direction, card }: Props) => {
 
   /*
@@ -55,6 +40,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   ** chartData
   */
   const [chartData, setChartData] = useState()
+  const [test, setTest] = useState()
   const fetchData = async () => {
     if (router.isReady) {
       const params = {
@@ -63,9 +49,12 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
         code: router.query.code,
       }
       const urlSearchParam = new URLSearchParams(params).toString();
-      const response = await fetch(`/api/data?${urlSearchParam}`)
-      const data = await response.json()
-      setChartData(data)
+      // const response = await fetch(`/api/data?${urlSearchParam}`)
+      // const data = await response.json()
+      // setChartData(data)
+      const r = await fetch(`/api/recharts-timechart?${urlSearchParam}`)
+      const d = await r.json()
+      setTest(d)
     }
   }
 
@@ -91,7 +80,8 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
 
   const categories = card.categories
 
-  // console.log(card)
+  // const pd = test.chartData
+
 
   return (
     <Card>
