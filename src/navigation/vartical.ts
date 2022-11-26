@@ -1,5 +1,20 @@
 // ** Icon imports
 import WeatherPartlyCloudy from 'mdi-material-ui/WeatherPartlyCloudy'
+import AccountGroupOutline from 'mdi-material-ui/AccountGroupOutline'
+import BriefcaseOutline from 'mdi-material-ui/BriefcaseOutline'
+import Tractor from 'mdi-material-ui/Tractor'
+import Factory from 'mdi-material-ui/Factory'
+import StoreOutline from 'mdi-material-ui/StoreOutline'
+import Cash from 'mdi-material-ui/Cash'
+import OfficeBuildingOutline from 'mdi-material-ui/OfficeBuildingOutline'
+import WaterOutline from 'mdi-material-ui/WaterOutline'
+import TruckOutline from 'mdi-material-ui/TruckOutline'
+import SchoolOutline from 'mdi-material-ui/SchoolOutline'
+import Finance from 'mdi-material-ui/Finance'
+import SproutOutline from 'mdi-material-ui/SproutOutline'
+import MedicalBag from 'mdi-material-ui/MedicalBag'
+import Earth from 'mdi-material-ui/Earth'
+
 
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
@@ -38,7 +53,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '人口・世帯',
-      icon: WeatherPartlyCloudy,
+      icon: AccountGroupOutline,
       children: [
         {
           title: '人口',
@@ -72,7 +87,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '労働・賃金',
-      icon: WeatherPartlyCloudy,
+      icon: BriefcaseOutline,
       children: [
         {
           title: '労働力人口',
@@ -86,7 +101,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '農林水産業',
-      icon: WeatherPartlyCloudy,
+      icon: Tractor,
       children: [
         {
           title: '農業',
@@ -104,7 +119,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '鉱工業',
-      icon: WeatherPartlyCloudy,
+      icon: Factory,
       children: [
         {
           title: '製造業',
@@ -118,7 +133,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '商業・サービス業',
-      icon: WeatherPartlyCloudy,
+      icon: StoreOutline,
       children: [
         {
           title: '商業',
@@ -128,7 +143,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '企業・家計・経済',
-      icon: WeatherPartlyCloudy,
+      icon: Cash,
       children: [
         {
           title: '総生産',
@@ -154,7 +169,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '住宅・土地・建設',
-      icon: WeatherPartlyCloudy,
+      icon: OfficeBuildingOutline,
       children: [
         {
           title: '土地',
@@ -168,7 +183,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'エネルギー・水',
-      icon: WeatherPartlyCloudy,
+      icon: WaterOutline,
       children: [
         {
           title: 'エネルギー',
@@ -182,7 +197,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '運輸・観光',
-      icon: WeatherPartlyCloudy,
+      icon: TruckOutline,
       children: [
         {
           title: '自動車',
@@ -200,7 +215,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '教育・文化・スポーツ',
-      icon: WeatherPartlyCloudy,
+      icon: SchoolOutline,
       children: [
         {
           title: '幼稚園',
@@ -226,7 +241,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '行財政',
-      icon: WeatherPartlyCloudy,
+      icon: Finance,
       children: [
         {
           title: '職員',
@@ -244,7 +259,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '司法・安全・環境',
-      icon: WeatherPartlyCloudy,
+      icon: SproutOutline,
       children: [
         {
           title: '交通事故',
@@ -270,7 +285,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '医療・社会保障・衛生',
-      icon: WeatherPartlyCloudy,
+      icon: MedicalBag,
       children: [
         {
           title: '医療',
@@ -284,7 +299,7 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: '国際',
-      icon: WeatherPartlyCloudy,
+      icon: Earth,
       children: [
         {
           title: '外国人',
