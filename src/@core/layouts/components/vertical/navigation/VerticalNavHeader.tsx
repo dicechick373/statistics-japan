@@ -42,11 +42,11 @@ const MenuHeaderWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: theme.mixins.toolbar.minHeight
 }))
 
-const HeaderTitle = styled(Typography)<TypographyProps>({
-  fontWeight: 700,
-  lineHeight: 1.2,
-  transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
-})
+// const HeaderTitle = styled(Typography)<TypographyProps>({
+//   fontWeight: 700,
+//   lineHeight: 1.2,
+//   transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
+// })
 
 const StyledLink = styled('a')({
   display: 'flex',
