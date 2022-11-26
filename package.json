@@ -11,8 +11,6 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
-    "@casl/ability": "5.4.3",
-    "@casl/react": "2.3.0",
     "@emotion/cache": "11.6.0",
     "@emotion/react": "11.7.0",
     "@emotion/server": "11.4.0",
