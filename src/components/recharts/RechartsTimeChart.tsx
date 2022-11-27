@@ -5,24 +5,31 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import IconButton from '@mui/material/IconButton'
 
 // ** Third Party Imports
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, Brush } from 'recharts'
 
 // ** Icons Imports
 import ArrowUp from 'mdi-material-ui/ArrowUp'
+import DotsVertical from 'mdi-material-ui/DotsVertical'
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import SelectCategories from '../SelectCategories'
 import { CardContents } from 'src/types/common';
+
+import useSWR from "swr";
 
 interface Props {
   direction: 'ltr' | 'rtl'
   card: CardContents
 }
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 
 const RechartsTimeChart = ({ direction, card }: Props) => {
 
@@ -30,67 +37,28 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   ** useRouter
   */
   const router = useRouter();
+  const { code } = router.query;
+
+  const cardId = card.cardId
+  const { data, error } = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
 
   /*
   ** state
   */
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-
-  /*
-  ** chartData
-  */
-  const [chartData, setChartData] = useState()
-  const [test, setTest] = useState()
-  const fetchData = async () => {
-    if (router.isReady) {
-      const params = {
-        cardId: card.cardId,
-        governmentType: router.query.governmentType,
-        code: router.query.code,
-      }
-      const urlSearchParam = new URLSearchParams(params).toString();
-      // const response = await fetch(`/api/data?${urlSearchParam}`)
-      // const data = await response.json()
-      // setChartData(data)
-      const r = await fetch(`/api/recharts-timechart?${urlSearchParam}`)
-      const d = await r.json()
-      setTest(d)
-    }
-  }
-
-  /*
-  ** cardTitle
-  */
-  const [cardTitle, setCardTitle] = useState<string>()
-  const fetchArea = async () => {
-    if (router.isReady) {
-      const response = await fetch(`/api/areas?areaCode=${router.query.code}`)
-      const data = await response.json()
-      setCardTitle(`${data.areaName}${card.cardTitle.replace('都道府県', '').replace('市区町村', '')}`)
-    }
-  }
-
-  /*
-  ** useLayoutEffect
-  */
-  useLayoutEffect(() => {
-    fetchData()
-    fetchArea()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query])
-
   const categories = card.categories
 
-  // const pd = test.chartData
 
+
+  if (!data) {
+    return null
+  }
 
   return (
     <Card>
       <CardHeader
-        title={cardTitle}
+        title={data.cardTitle}
         titleTypographyProps={{ variant: 'h6' }}
-        subheader='Commercial networks & enterprises'
-        subheaderTypographyProps={{ variant: 'caption', sx: { color: 'text.disabled' } }}
         sx={{
           flexDirection: ['column', 'row'],
           alignItems: ['flex-start', 'center'],
@@ -98,36 +66,41 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
           '& .MuiCardHeader-content': { mb: [2, 0] }
         }}
         action={
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant='h6' sx={{ mr: 5 }}>
-              $221,267
-            </Typography>
-            <CustomChip
-              skin='light'
-              color='success'
-              sx={{ fontWeight: 500, borderRadius: 1, fontSize: '0.875rem' }}
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <ArrowUp sx={{ fontSize: '1rem', mr: 1 }} />
-                  <span>22%</span>
-                </Box>
-              }
-            />
-          </Box>
-
+          <IconButton size='small' aria-label='settings' className='card-more-options'>
+            <DotsVertical />
+          </IconButton>
         }
       />
 
       <CardContent>
+        <Box sx={{ mb: 5, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ mb: 1.25, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Typography variant='h4' sx={{ mr: 3.5 }}>
+              22,842
+            </Typography>
+            <CustomChip
+              skin='light'
+              size='small'
+              label='+42%'
+              color='success'
+              sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
+            />
+          </Box>
+          <Typography align='right' variant='caption'>Sales Last 90 Days</Typography>
+        </Box>
+
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12}>
-            <SelectCategories categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+            <SelectCategories
+              categories={categories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories} />
           </Grid>
           <Grid item xs={12} sm={12}>
             <Box sx={{ height: 350 }}>
 
               <ResponsiveContainer>
-                <LineChart height={350} data={chartData} style={{ direction }} margin={{ left: -20 }}>
+                <LineChart height={350} data={data.chartData} style={{ direction }} margin={{ left: -20 }}>
                   <CartesianGrid />
                   <XAxis dataKey='time' reversed={direction === 'rtl'} />
                   <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />

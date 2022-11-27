@@ -23,6 +23,7 @@ const MenuProps = {
 
 const SelectCategories = ({ categories, selectedCategories, setSelectedCategories }: Props) => {
 
+  console.log(categories)
   useEffect(() => {
     const data = categories.filter((f) => f.isSelect === 'TRUE').map((d) => d.categoryName)
     setSelectedCategories(data)
