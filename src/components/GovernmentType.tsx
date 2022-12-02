@@ -17,8 +17,6 @@ const GovernmentType = () => {
   const [governmentType, setGovernmentType] = useAtom(governmentTypeAtom)
   const [cityCode] = useAtom(cityCodeAtom)
   const [prefCode] = useAtom(prefCodeAtom)
-  console.log(prefCode)
-
 
   const router = useRouter();
   const { fieldId, menuId } = router.query

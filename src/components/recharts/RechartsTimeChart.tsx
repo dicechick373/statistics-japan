@@ -75,7 +75,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
       <CardContent>
         <Box sx={{ mb: 5, display: 'flex', flexDirection: 'column' }}>
           <Box sx={{ mb: 1.25, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-            <Typography variant='h4' sx={{ mr: 3.5 }}>
+            <Typography variant='h5' sx={{ mr: 3.5 }}>
               22,842
             </Typography>
             <CustomChip
