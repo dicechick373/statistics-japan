@@ -42,6 +42,8 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   const cardId = card.cardId
   const { data, error } = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
 
+  console.log(data)
+  
   /*
   ** state
   */

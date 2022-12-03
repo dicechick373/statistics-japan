@@ -64,5 +64,18 @@ export type Category = {
   categoryName: string
   isSelect: boolean
   type: string
+  unit?: string
   yAxis: number
+}
+
+export type RechartsData = {
+  cardTitle: string
+  categories: Category[]
+  chartData: Array
+  infoTitle: string
+  infoData: string
+  infoRankJapan: string
+  infoRankPref: string
+  sourceTitle: string
+  sourceURL: string
 }
