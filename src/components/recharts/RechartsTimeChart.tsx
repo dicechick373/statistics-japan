@@ -49,7 +49,6 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
   const categories = card.categories
 
 
-
   if (!data) {
     return null
   }
@@ -74,9 +73,9 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
 
       <CardContent>
         <Box sx={{ mb: 5, display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ mb: 1.25, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <Box sx={{ mb: 1.25, display: 'flex', alignItems: 'center' }}>
             <Typography variant='h5' sx={{ mr: 3.5 }}>
-              22,842
+              {(data.infoData)}
             </Typography>
             <CustomChip
               skin='light'
@@ -86,7 +85,7 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
               sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
             />
           </Box>
-          <Typography align='right' variant='caption'>Sales Last 90 Days</Typography>
+          <Typography variant='caption'>{(data.infoTitle)}</Typography>
         </Box>
 
         <Grid container spacing={5}>
@@ -100,11 +99,11 @@ const RechartsTimeChart = ({ direction, card }: Props) => {
             <Box sx={{ height: 350 }}>
 
               <ResponsiveContainer>
-                <LineChart height={350} data={data.chartData} style={{ direction }} margin={{ left: -20 }}>
+                <LineChart height={350} data={data.chartData} style={{ direction }} margin={{ left: 30 }}>
                   <CartesianGrid />
                   <XAxis dataKey='time' reversed={direction === 'rtl'} />
                   <YAxis orientation={direction === 'rtl' ? 'right' : 'left'} />
-                  <Brush dataKey='time' startIndex={4} endIndex={10} />
+                  {/* <Brush /> */}
                   {/* <Tooltip content={CustomTooltip} /> */}
                   {selectedCategories.map((c) => (
                     <Line dataKey={c} key={c} />
