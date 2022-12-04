@@ -8,17 +8,17 @@ import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
 
 // ** Third Party Imports
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, Brush } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, Brush } from 'recharts'
 
 // ** Icons Imports
-import ArrowUp from 'mdi-material-ui/ArrowUp'
+// import ArrowUp from 'mdi-material-ui/ArrowUp'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import SelectCategories from '../SelectCategories'
+import SelectTime from '../SelectTime'
 import { CardContents } from 'src/types/common';
 
 import useSWR from "swr";
@@ -30,25 +30,22 @@ interface Props {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 
-const RechartsTimeChart = ({ card }: Props) => {
+const RechartsPyramidChart = ({ card }: Props) => {
 
-  /*
-  ** useRouter
-  */
+  // ** useRouter
   const router = useRouter();
   const { code } = router.query;
 
+  // ** useSWR
   const cardId = card.cardId
-  const { data, error } = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
+  const { data } = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
 
-  // console.log(data)
+  console.log(data)
 
   /*
   ** state
   */
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const categories = card.categories
-
+  const [selectedTime, setSelectedTime] = useState<string[]>([])
 
   if (!data) {
     return null
@@ -89,24 +86,34 @@ const RechartsTimeChart = ({ card }: Props) => {
         </Box>
         <Grid container spacing={5}>
           <Grid item xs={12} sm={12}>
-            <SelectCategories
-              categories={categories}
-              selectedCategories={selectedCategories}
-              setSelectedCategories={setSelectedCategories} />
+            <SelectTime
+              times={data.times}
+              selectedTime={selectedTime}
+              setSelectedTime={setSelectedTime} />
           </Grid>
           <Grid item xs={12} sm={12}>
             <Box sx={{ height: 350 }}>
               <ResponsiveContainer>
-                <LineChart height={350} data={data.chartData} margin={{ left: 30 }}>
+                <BarChart
+                  height={350}
+                  layout="vertical"
+                  data={data.chartData.filter((f) => f.time === selectedTime)}
+                  stackOffset="sign"
+                  margin={{ left: 30 }}>
                   <CartesianGrid />
-                  <XAxis dataKey='time' />
-                  <YAxis />
-                  {/* <Brush /> */}
-                  {/* <Tooltip content={CustomTooltip} /> */}
-                  {selectedCategories.map((c) => (
-                    <Line dataKey={c} key={c} />
-                  ))}
-                </LineChart>
+                  <XAxis type="number" />
+                  <YAxis type="category" dataKey="categoryName" />
+                  <Bar
+                    dataKey="man"
+                    fill="#2250A2"
+                    stackId="stack"
+                  />
+                  <Bar
+                    dataKey="woman"
+                    fill="#FFB6C1"
+                    stackId="stack"
+                  />
+                </BarChart>
               </ResponsiveContainer>
             </Box>
           </Grid>
@@ -116,4 +123,4 @@ const RechartsTimeChart = ({ card }: Props) => {
   )
 }
 
-export default RechartsTimeChart
+export default RechartsPyramidChart
