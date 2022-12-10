@@ -27,7 +27,7 @@ const GovernmentType = () => {
   }
 
   const handleChange = (
-    event,
+    event: any,
   ) => {
     const { target } = event;
     // if (!(target instanceof HTMLInputElement)) {
