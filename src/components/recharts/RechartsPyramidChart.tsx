@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
 
 // ** Third Party Imports
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, Brush } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts'
 
 // ** Icons Imports
 // import ArrowUp from 'mdi-material-ui/ArrowUp'
@@ -39,8 +39,6 @@ const RechartsPyramidChart = ({ card }: Props) => {
   // ** useSWR
   const cardId = card.cardId
   const { data } = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
-
-  console.log(data)
 
   /*
   ** state
