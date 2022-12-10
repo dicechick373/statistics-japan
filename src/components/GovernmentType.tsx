@@ -27,10 +27,14 @@ const GovernmentType = () => {
   }
 
   const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
+    event: React.MouseEvent<HTMLInputElement>,
   ) => {
-    const newGovernmentType = event.target.value
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
 
+    const newGovernmentType = target.value
     setGovernmentType(newGovernmentType)
 
     const url = newGovernmentType === 'prefecture'
