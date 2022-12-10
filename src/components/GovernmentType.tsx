@@ -27,12 +27,12 @@ const GovernmentType = () => {
   }
 
   const handleChange = (
-    event: any,
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const { target } = event;
-    // if (!(target instanceof HTMLInputElement)) {
-    //   return;
-    // }
+    if (!(target instanceof HTMLInputElement)) {
+      return;
+    }
 
     const newGovernmentType = target.value
 
