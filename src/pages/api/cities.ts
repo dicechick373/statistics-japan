@@ -3,7 +3,7 @@ import { Area, City } from 'src/types/common'
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<City[] | City>) {
-  const response = await fetch("https://storage.googleapis.com/statistics-hyogo/resas/arealist.json")
+  const response = await fetch("https://storage.googleapis.com/statistics-hyogo/resas/citylist.json")
   const areas: Area[] = await response.json()
 
   const cities: City[] = areas.filter((f) => f.governmentType === 'city')

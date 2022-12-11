@@ -31,16 +31,12 @@ const GovernmentType = () => {
     event: React.MouseEvent<HTMLElement>,
     newVal: any,
   ) => {
-
-    // console.log(newVal)
     setGovernmentType(newVal)
     const url = newVal === 'prefecture'
       ? `/prefecture/${codeToString(prefCode)}/${fieldId}/${menuId}`
       : `/city/${cityCode}/${fieldId}/${menuId}`
 
     router.push(url)
-
-
   };
 
   return (

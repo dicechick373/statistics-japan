@@ -26,7 +26,7 @@ const Recharts = () => {
     fetcher
   )
 
-  // console.log(cards)
+  console.log(cards)
 
   return (
     <RechartsWrapper>
