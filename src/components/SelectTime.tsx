@@ -7,16 +7,22 @@ import InputLabel from '@mui/material/InputLabel'
 // ** Next Imports
 import { useEffect } from 'react';
 
+// ** Types
+interface Props {
+  times: any
+  selectedTime: any
+  setSelectedTime: any
+}
+
 const SelectTime = ({ times, selectedTime, setSelectedTime }: Props) => {
+  // ** useEffect
   useEffect(() => {
     const data = times.slice(-1)[0]
     setSelectedTime(data.timeCode)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  /*
-  ** 選択時の処理
-  */
+  // ** 選択時の処理
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     setSelectedTime(event.target.value as string[])
   }
@@ -26,15 +32,15 @@ const SelectTime = ({ times, selectedTime, setSelectedTime }: Props) => {
       <FormControl fullWidth>
         <InputLabel id='demo-multiple-checkbox-label'>年次</InputLabel>
         <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
+          labelId='demo-select-small'
+          id='demo-select-small'
           value={selectedTime}
-          label="Age"
+          label='Age'
           onChange={handleChange}
         >
-          {times.map((d) => (
+          {times.map(d => (
             <MenuItem key={d.timeCode} value={d.timeCode}>
-              {(d.timeName)}
+              {d.timeName}
             </MenuItem>
           ))}
         </Select>
