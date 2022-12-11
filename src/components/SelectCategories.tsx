@@ -21,6 +21,12 @@ const MenuProps = {
   }
 }
 
+interface Props {
+  categories: any
+  selectedCategories: any
+  setSelectedCategories: any
+}
+
 const SelectCategories = ({ categories, selectedCategories, setSelectedCategories }: Props) => {
   useEffect(() => {
     const data = categories.filter((f) => f.isSelect === 'TRUE').map((d) => d.categoryName)
@@ -48,7 +54,7 @@ const SelectCategories = ({ categories, selectedCategories, setSelectedCategorie
           labelId='demo-multiple-checkbox-label'
           renderValue={selected => (selected as unknown as string[]).join(', ')}
         >
-          {categories.map((d)=>d.categoryName).map(name => (
+          {categories.map((d) => d.categoryName).map(name => (
             <MenuItem key={name} value={name}>
               <Checkbox checked={selectedCategories.indexOf(name) > -1} />
               <ListItemText primary={name} />
