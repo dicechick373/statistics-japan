@@ -1,5 +1,5 @@
 // ** Third Party Imports
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps, Brush } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer} from 'recharts'
 import { Category, RechartsData } from 'src/types/common'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box'

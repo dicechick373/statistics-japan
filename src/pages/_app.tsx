@@ -91,6 +91,7 @@ const App = (props: ExtendedAppProps) => {
       setAreaList(data)
     }
     fetchAreas()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
