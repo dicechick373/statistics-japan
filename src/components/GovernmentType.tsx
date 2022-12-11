@@ -4,17 +4,18 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 // ** Jotai Imports
 import { useAtom } from 'jotai';
-import { cityCodeAtom, prefCodeAtom, governmentTypeAtom } from 'src/components/atoms';
+import { cityCodeAtom, prefCodeAtom } from 'src/components/atoms';
 
 // ** Next Imports
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const GovernmentType = () => {
 
   /*
  ** Jotai
  */
-  const [governmentType, setGovernmentType] = useAtom(governmentTypeAtom)
+  const [governmentType, setGovernmentType] = useState<string | null>('prefecture');
   const [cityCode] = useAtom(cityCodeAtom)
   const [prefCode] = useAtom(prefCodeAtom)
 
@@ -27,18 +28,13 @@ const GovernmentType = () => {
   }
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.MouseEvent<HTMLElement>,
+    newVal: any,
   ) => {
-    const { target } = event;
-    if (!(target instanceof HTMLInputElement)) {
-      return;
-    }
 
-    const newGovernmentType = target.value
-
-    setGovernmentType(newGovernmentType)
-
-    const url = newGovernmentType === 'prefecture'
+    // console.log(newVal)
+    setGovernmentType(newVal)
+    const url = newVal === 'prefecture'
       ? `/prefecture/${codeToString(prefCode)}/${fieldId}/${menuId}`
       : `/city/${cityCode}/${fieldId}/${menuId}`
 
