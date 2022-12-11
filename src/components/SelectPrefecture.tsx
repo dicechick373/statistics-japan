@@ -5,7 +5,7 @@ import FormControl from '@mui/material/FormControl'
 
 // ** Jotai Imports
 import { useAtom } from 'jotai'
-import { areaListAtom, cityCodeAtom, prefCodeAtom, prefListAtom } from 'src/components/atoms'
+import { prefCodeAtom, prefListAtom } from 'src/components/atoms'
 
 import { useRouter } from 'next/router'
 

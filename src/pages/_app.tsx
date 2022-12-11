@@ -83,7 +83,9 @@ const App = (props: ExtendedAppProps) => {
   // const aclAbilities = Component.acl ?? defaultACLObj
 
   // ** set areasAtom
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [areaList, setAreaList] = useAtom(areaListAtom)
+
   useEffect(() => {
     const fetchAreas = async () => {
       const response = await fetch('/api/areas')
