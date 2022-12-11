@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts'
 
 // ** Icons Imports
-import ArrowUp from 'mdi-material-ui/ArrowUp'
+// import ArrowUp from 'mdi-material-ui/ArrowUp'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 
 // ** Custom Components Imports
@@ -39,7 +39,7 @@ const RechartsTimeChart = ({ card }: Props) => {
   const { code } = router.query;
 
   const cardId = card.cardId
-  const { data, error } = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
+  const { data} = useSWR(code ? `/api/recharts-timechart?cardId=${cardId}&code=${code}` : null, fetcher);
 
   // console.log(data)
 
