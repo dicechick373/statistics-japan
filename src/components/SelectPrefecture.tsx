@@ -33,7 +33,7 @@ const SelectPrefecture = () => {
   const handleChange = (event: React.MouseEvent<HTMLElement>) => {
     const newPrefCode = event.target.value
     setPrefCode(newPrefCode)
-    // setCityCode(initCityCode(newPrefCode))
+
     router.push(`/prefecture/${codeToString(event.target.value)}/${fieldId}/${menuId}`)
   }
 
