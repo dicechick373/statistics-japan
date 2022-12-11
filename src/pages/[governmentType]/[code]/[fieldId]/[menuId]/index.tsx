@@ -12,18 +12,19 @@ import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 import RechartsTimeChart from 'src/components/recharts/RechartsTimeChart'
 import RechartsPyramidChart from 'src/components/recharts/RechartsPyramidChart'
 import { CardContents } from 'src/types/common'
-import useSWR, { Fetcher } from "swr";
+import useSWR, { Fetcher } from 'swr'
 
 const Recharts = () => {
-
   // ** useRouter
-  const router = useRouter();
+  const router = useRouter()
   const { menuId, governmentType } = router.query
 
   // ** useSWR
-  const fetcher: Fetcher<CardContents[]> = (url: string) => fetch(url).then((res) => res.json());
-  const { data: cards } = useSWR(router.query ? `/api/cards?menuId=${menuId}&governmentType=${governmentType}` : null, fetcher);
-
+  const fetcher: Fetcher<CardContents[]> = (url: string) => fetch(url).then(res => res.json())
+  const { data: cards } = useSWR(
+    router.query ? `/api/cards?menuId=${menuId}&governmentType=${governmentType}` : null,
+    fetcher
+  )
 
   // console.log(cards)
 
@@ -31,13 +32,16 @@ const Recharts = () => {
     <RechartsWrapper>
       <DatePickerWrapper>
         <Grid container spacing={6}>
-          {cards && cards.map((c) => (
-            <Grid item xs={12} md={6} key={c.cardId} >
-              {c.chartComponent === 'ComposedChart' ?
-                <RechartsTimeChart card={c} /> :
-                <RechartsPyramidChart card={c} />}
-            </Grid>
-          ))}
+          {cards &&
+            cards.map(c => (
+              <Grid item xs={12} md={6} key={c.cardId}>
+                {c.chartComponent === 'ComposedChart' ? (
+                  <RechartsTimeChart card={c} />
+                ) : (
+                  <RechartsPyramidChart card={c} />
+                )}
+              </Grid>
+            ))}
         </Grid>
       </DatePickerWrapper>
     </RechartsWrapper>
