@@ -19,14 +19,15 @@ const Recharts = () => {
   const router = useRouter()
   const { menuId, governmentType } = router.query
 
-  // ** useSWR
-  const fetcher: Fetcher<CardContents[]> = (url: string) => fetch(url).then(res => res.json())
-  const { data: cards } = useSWR(
-    router.query ? `/api/cards?menuId=${menuId}&governmentType=${governmentType}` : null,
-    fetcher
-  )
+  // server apiのurl
+  const url = router.query
+    ? `/api/cards?menuId=${menuId}&governmentType=${governmentType}`
+    : null
 
-  console.log(cards)
+  // ** useSWR
+  const fetcher: Fetcher<CardContents[]> = (url: string) =>
+    fetch(url).then(res => res.json())
+  const { data: cards } = useSWR(url, fetcher)
 
   return (
     <RechartsWrapper>

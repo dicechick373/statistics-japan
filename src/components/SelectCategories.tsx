@@ -31,6 +31,7 @@ const SelectCategories = ({ categories, selectedCategories, setSelectedCategorie
   useEffect(() => {
     const data = categories.filter((f) => f.isSelect === 'TRUE').map((d) => d.categoryName)
     setSelectedCategories(data)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   /*
