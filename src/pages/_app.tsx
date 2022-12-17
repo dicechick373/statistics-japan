@@ -3,10 +3,9 @@ import { useEffect } from 'react'
 
 // ** Next Imports
 import Head from 'next/head'
-import { Router } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-
 
 // ** Loader Import
 import NProgress from 'nprogress'
@@ -21,20 +20,19 @@ import themeConfig from 'src/configs/themeConfig'
 // ** Fake-DB Import
 import 'src/@fake-db'
 
-// ** Third Party Import
-import { Toaster } from 'react-hot-toast'
-
 // ** Component Imports
 import UserLayout from 'src/layouts/UserLayout'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
-import WindowWrapper from 'src/@core/components/window-wrapper'
 
 // ** Contexts
 import { AuthProvider } from 'src/context/AuthContext'
-import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
+import {
+  SettingsConsumer,
+  SettingsProvider,
+} from 'src/@core/context/settingsContext'
 
 // ** Styled Components
-import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
+// import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
 
 // ** Utils Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
@@ -57,7 +55,6 @@ type ExtendedAppProps = AppProps & {
 
 const clientSideEmotionCache = createEmotionCache()
 
-
 // ** Pace Loader
 if (themeConfig.routingLoader) {
   Router.events.on('routeChangeStart', () => {
@@ -73,10 +70,15 @@ if (themeConfig.routingLoader) {
 
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const {
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps,
+  } = props
 
   // Variables
-  const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
+  const getLayout =
+    Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
 
   const setConfig = Component.setConfig ?? undefined
 
@@ -93,9 +95,8 @@ const App = (props: ExtendedAppProps) => {
       setAreaList(data)
     }
     fetchAreas()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
 
   return (
     <CacheProvider value={emotionCache}>
@@ -105,22 +106,25 @@ const App = (props: ExtendedAppProps) => {
           name='description'
           content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
         />
-        <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
-        <meta name='viewport' content='initial-scale=1, width=device-width' />
+        <meta
+          name='keywords'
+          content='Material Design, MUI, Admin Template, React Admin Template'
+        />
+        <meta
+          name='viewport'
+          content='initial-scale=1, width=device-width'
+        />
       </Head>
 
       <AuthProvider>
-        <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+        <SettingsProvider
+          {...(setConfig ? { pageSettings: setConfig() } : {})}
+        >
           <SettingsConsumer>
             {({ settings }) => {
               return (
                 <ThemeComponent settings={settings}>
-                  <WindowWrapper>
-                    {getLayout(<Component {...pageProps} />)}
-                  </WindowWrapper>
-                  <ReactHotToast>
-                    <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
-                  </ReactHotToast>
+                  {getLayout(<Component {...pageProps} />)}
                 </ThemeComponent>
               )
             }}

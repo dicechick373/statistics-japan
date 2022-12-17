@@ -27,6 +27,8 @@ const navigation = (): VerticalNavItemsType => {
   const [governmentType] = useAtom(governmentTypeAtom)
   const [areaCode] = useAtom(currentAreaCodeAtom)
 
+  // console.log({ governmentType ,areaCode})
+
   return [
     {
       sectionTitle: '統計分野'
