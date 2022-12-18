@@ -9,7 +9,7 @@ import RechartsWrapper from 'src/@core/styles/libs/recharts'
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 // ** Component Imports
-import RechartsTimeChart from 'src/components/recharts/RechartsTimeChart'
+import RechartsComposedChart from 'src/components/recharts/RechartsComposedChart'
 import RechartsPyramidChart from 'src/components/recharts/RechartsPyramidChart'
 import { CardContents } from 'src/types/common'
 import useSWR, { Fetcher } from 'swr'
@@ -46,7 +46,7 @@ const Recharts = () => {
             cards.map(c => (
               <Grid item xs={12} md={6} key={c.cardId}>
                 {c.chartComponent === 'ComposedChart' ? (
-                  <RechartsTimeChart card={c} />
+                  <RechartsComposedChart card={c} />
                 ) : (
                   <RechartsPyramidChart card={c} />
                 )}
