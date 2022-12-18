@@ -18,16 +18,7 @@ import Earth from 'mdi-material-ui/Earth'
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
-// ** Jotai Imports
-import { useAtom } from 'jotai'
-import { governmentTypeAtom, currentAreaCodeAtom } from 'src/components/atoms';
-
 const navigation = (): VerticalNavItemsType => {
-
-  const [governmentType] = useAtom(governmentTypeAtom)
-  const [areaCode] = useAtom(currentAreaCodeAtom)
-
-  // console.log({ governmentType ,areaCode})
 
   return [
     {
@@ -39,15 +30,15 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '面積',
-          path: `/${governmentType}/${areaCode}/landweather/area`
+          path: `/nav/landweather/area`
         },
         {
           title: '気候',
-          path: `/${governmentType}/${areaCode}/landweather/climate`
+          path: `/nav/landweather/climate`
         },
         {
           title: '自然・公園',
-          path: `/${governmentType}/${areaCode}/landweather/park`
+          path: `/nav/landweather/park`
         }
       ]
     },
@@ -57,31 +48,31 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '人口',
-          path: `/${governmentType}/${areaCode}/population/population`
+          path: `/nav/population/population`
         },
         {
           title: '世帯',
-          path: `/${governmentType}/${areaCode}/population/household`
+          path: `/nav/population/household`
         },
         {
           title: '婚姻',
-          path: `/${governmentType}/${areaCode}/population/marriage`
+          path: `/nav/population/marriage`
         },
         {
           title: '出生',
-          path: `/${governmentType}/${areaCode}/population/birth`
+          path: `/nav/population/birth`
         },
         {
           title: '死亡',
-          path: `/${governmentType}/${areaCode}/population/death`
+          path: `/nav/population/death`
         },
         {
           title: '流入・流出',
-          path: `/${governmentType}/${areaCode}/population/inflowoutflow`
+          path: `/nav/population/inflowoutflow`
         },
         {
           title: '転入・転出',
-          path: `/${governmentType}/${areaCode}/population/moveinmoveout`
+          path: `/nav/population/moveinmoveout`
         }
       ]
     },
@@ -91,11 +82,11 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '労働力人口',
-          path: `/${governmentType}/${areaCode}/laborwage/labor-force`
+          path: `/nav/laborwage/labor-force`
         },
         {
           title: '労働・賃金',
-          path: `/${governmentType}/${areaCode}/laborwage/laborwage`
+          path: `/nav/laborwage/laborwage`
         }
       ]
     },
@@ -105,15 +96,15 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '農業',
-          path: `/${governmentType}/${areaCode}/agriculture/agriculture`
+          path: `/nav/agriculture/agriculture`
         },
         {
           title: '林業',
-          path: `/${governmentType}/${areaCode}/agriculture/forestry`
+          path: `/nav/agriculture/forestry`
         },
         {
           title: '漁業',
-          path: `/${governmentType}/${areaCode}/agriculture/fishing`
+          path: `/nav/agriculture/fishing`
         }
       ]
     },
@@ -123,11 +114,11 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '製造業',
-          path: `/${governmentType}/${areaCode}/miningindustry/manufacturing-industry`
+          path: `/nav/miningindustry/manufacturing-industry`
         },
         {
           title: '工業用水',
-          path: `/${governmentType}/${areaCode}/miningindustry/industrial-water`
+          path: `/nav/miningindustry/industrial-water`
         }
       ]
     },
@@ -137,7 +128,7 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '商業',
-          path: `/${governmentType}/${areaCode}/commercial/commercial`
+          path: `/nav/commercial/commercial`
         }
       ]
     },
@@ -147,23 +138,23 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '総生産',
-          path: `/${governmentType}/${areaCode}/economy/gross-domestic-product`
+          path: `/nav/economy/gross-domestic-product`
         },
         {
           title: '家計',
-          path: `/${governmentType}/${areaCode}/economy/household-budget`
+          path: `/nav/economy/household-budget`
         },
         {
           title: '物価',
-          path: `/${governmentType}/${areaCode}/economy/price`
+          path: `/nav/economy/price`
         },
         {
           title: '売上',
-          path: `/${governmentType}/${areaCode}/economy/sales`
+          path: `/nav/economy/sales`
         },
         {
           title: '事業所等',
-          path: `/${governmentType}/${areaCode}/economy/establishments`
+          path: `/nav/economy/establishments`
         }
       ]
     },
@@ -173,11 +164,11 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '土地',
-          path: `/${governmentType}/${areaCode}/construction/land`
+          path: `/nav/construction/land`
         },
         {
           title: '建設',
-          path: `/${governmentType}/${areaCode}/construction/construction`
+          path: `/nav/construction/construction`
         },
       ]
     },
@@ -187,11 +178,11 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: 'エネルギー',
-          path: `/${governmentType}/${areaCode}/energy/energy`
+          path: `/nav/energy/energy`
         },
         {
           title: 'ごみ',
-          path: `/${governmentType}/${areaCode}/energy/garbage`
+          path: `/nav/energy/garbage`
         }
       ]
     },
@@ -201,15 +192,15 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '自動車',
-          path: `/${governmentType}/${areaCode}/tourism/car`
+          path: `/nav/tourism/car`
         },
         {
           title: '交通',
-          path: `/${governmentType}/${areaCode}/tourism/traffic`
+          path: `/nav/tourism/traffic`
         },
         {
           title: '宿泊施設',
-          path: `/${governmentType}/${areaCode}/tourism/hotel`
+          path: `/nav/tourism/hotel`
         }
       ]
     },
@@ -219,23 +210,23 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '幼稚園',
-          path: `/${governmentType}/${areaCode}/educationsports/kindergarten`
+          path: `/nav/educationsports/kindergarten`
         },
         {
           title: '小学校',
-          path: `/${governmentType}/${areaCode}/educationsports/primary-schools`
+          path: `/nav/educationsports/primary-schools`
         },
         {
           title: '中学校',
-          path: `/${governmentType}/${areaCode}/educationsports/junior-high-school`
+          path: `/nav/educationsports/junior-high-school`
         },
         {
           title: '高等学校',
-          path: `/${governmentType}/${areaCode}/educationsports/high-school`
+          path: `/nav/educationsports/high-school`
         },
         {
           title: '短大・大学',
-          path: `/${governmentType}/${areaCode}/educationsports/university`
+          path: `/nav/educationsports/university`
         }
       ]
     },
@@ -245,15 +236,15 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '職員',
-          path: `/${governmentType}/${areaCode}/administrativefinancial/staff`
+          path: `/nav/administrativefinancial/staff`
         },
         {
           title: '財政',
-          path: `/${governmentType}/${areaCode}/administrativefinancial/finance`
+          path: `/nav/administrativefinancial/finance`
         },
         {
           title: '議会',
-          path: `/${governmentType}/${areaCode}/administrativefinancial/parliament`
+          path: `/nav/administrativefinancial/parliament`
         }
       ]
     },
@@ -263,23 +254,23 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '交通事故',
-          path: `/${governmentType}/${areaCode}/safetyenvironment/traffic-accident`
+          path: `/nav/safetyenvironment/traffic-accident`
         },
         {
           title: '犯罪',
-          path: `/${governmentType}/${areaCode}/safetyenvironment/crime`
+          path: `/nav/safetyenvironment/crime`
         },
         {
           title: '災害',
-          path: `/${governmentType}/${areaCode}/safetyenvironment/disaster`
+          path: `/nav/safetyenvironment/disaster`
         },
         {
           title: '環境・公害',
-          path: `/${governmentType}/${areaCode}/safetyenvironment/environment`
+          path: `/nav/safetyenvironment/environment`
         },
         {
           title: '火災・消防',
-          path: `/${governmentType}/${areaCode}/safetyenvironment/fires`
+          path: `/nav/safetyenvironment/fires`
         }
       ]
     },
@@ -289,11 +280,11 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '医療',
-          path: `/${governmentType}/${areaCode}/socialsecurity/medical`
+          path: `/nav/socialsecurity/medical`
         },
         {
           title: '生活保護',
-          path: `/${governmentType}/${areaCode}/socialsecurity/welfare`
+          path: `/nav/socialsecurity/welfare`
         }
       ]
     },
@@ -303,11 +294,11 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: '外国人',
-          path: `/${governmentType}/${areaCode}/international/foreigner`
+          path: `/nav/international/foreigner`
         },
         {
           title: '入国・出国',
-          path: `/${governmentType}/${areaCode}/international/immigrant`
+          path: `/nav/international/immigrant`
         }
       ]
     },

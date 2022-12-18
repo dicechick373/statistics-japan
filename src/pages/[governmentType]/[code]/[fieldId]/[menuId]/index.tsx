@@ -13,11 +13,20 @@ import RechartsTimeChart from 'src/components/recharts/RechartsTimeChart'
 import RechartsPyramidChart from 'src/components/recharts/RechartsPyramidChart'
 import { CardContents } from 'src/types/common'
 import useSWR, { Fetcher } from 'swr'
+import { useAtom } from 'jotai'
+import { globalStateAtom } from 'src/components/atoms'
 
 const Recharts = () => {
   // ** useRouter
   const router = useRouter()
   const { menuId, governmentType } = router.query
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [globalState, setGlobalState] = useAtom(globalStateAtom)
+  
+  if (router.query) {
+    setGlobalState(router.query)
+  }
 
   // server apiのurl
   const url = router.query

@@ -44,8 +44,8 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 import '../../styles/globals.css'
 
 // ** Jotai
-import { useAtom } from 'jotai'
-import { areaListAtom } from '../components/atoms'
+import { Provider, useAtom } from 'jotai'
+import { areaListAtom, globalStateAtom } from '../components/atoms'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -82,11 +82,13 @@ const App = (props: ExtendedAppProps) => {
 
   const setConfig = Component.setConfig ?? undefined
 
-  // const aclAbilities = Component.acl ?? defaultACLObj
+  // ** Jotai
 
-  // ** set areasAtom
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [areaList, setAreaList] = useAtom(areaListAtom)
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [globalState, setGlobalState] = useAtom(globalStateAtom)
 
   useEffect(() => {
     const fetchAreas = async () => {
@@ -99,39 +101,41 @@ const App = (props: ExtendedAppProps) => {
   }, [])
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>{`${themeConfig.templateName} - 統計で見る兵庫県のすがた`}</title>
-        <meta
-          name='description'
-          content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
-        />
-        <meta
-          name='keywords'
-          content='Material Design, MUI, Admin Template, React Admin Template'
-        />
-        <meta
-          name='viewport'
-          content='initial-scale=1, width=device-width'
-        />
-      </Head>
+    <Provider>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>{`${themeConfig.templateName} - 統計で見る兵庫県のすがた`}</title>
+          <meta
+            name='description'
+            content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
+          />
+          <meta
+            name='keywords'
+            content='Material Design, MUI, Admin Template, React Admin Template'
+          />
+          <meta
+            name='viewport'
+            content='initial-scale=1, width=device-width'
+          />
+        </Head>
 
-      <AuthProvider>
-        <SettingsProvider
-          {...(setConfig ? { pageSettings: setConfig() } : {})}
-        >
-          <SettingsConsumer>
-            {({ settings }) => {
-              return (
-                <ThemeComponent settings={settings}>
-                  {getLayout(<Component {...pageProps} />)}
-                </ThemeComponent>
-              )
-            }}
-          </SettingsConsumer>
-        </SettingsProvider>
-      </AuthProvider>
-    </CacheProvider>
+        <AuthProvider>
+          <SettingsProvider
+            {...(setConfig ? { pageSettings: setConfig() } : {})}
+          >
+            <SettingsConsumer>
+              {({ settings }) => {
+                return (
+                  <ThemeComponent settings={settings}>
+                    {getLayout(<Component {...pageProps} />)}
+                  </ThemeComponent>
+                )
+              }}
+            </SettingsConsumer>
+          </SettingsProvider>
+        </AuthProvider>
+      </CacheProvider>
+    </Provider>
   )
 }
 

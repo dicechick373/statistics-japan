@@ -15,7 +15,6 @@ import VerticalAppBarContent from './components/vertical/AppBarContent'
 
 // ** Hook Import
 import { useSettings } from 'src/@core/hooks/useSettings'
-import { useRouter } from 'next/router'
 
 interface Props {
   children: ReactNode
@@ -24,10 +23,6 @@ interface Props {
 const UserLayout = ({ children }: Props) => {
   // ** Hooks
   const { settings, saveSettings } = useSettings()
-
-  const router = useRouter()
-  const { governmentType, code } = router.query
-  console.log({ governmentType, code })
 
   /**
    *  The below variable will hide the current layout menu at given screen size.
