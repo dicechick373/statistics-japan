@@ -24,7 +24,6 @@ const Push = () => {
   const url = `/${governmentType}/${code}/${fieldId}/${menuId}/`
 
   useEffect(() => {
-    // const homeRoute = getHomeRoute()
     router.push(url)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
