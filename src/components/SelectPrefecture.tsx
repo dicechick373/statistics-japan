@@ -6,52 +6,58 @@ import FormControl from '@mui/material/FormControl'
 // ** Next Imports
 import { useRouter } from 'next/router'
 
-import useSWR, { Fetcher } from 'swr'
+import {
+  areaListAtom,
+  currentCityAtom,
+  currentPrefAtom,
+  prefListAtom,
+} from './atoms'
+import { useAtom } from 'jotai'
 import { Area } from 'src/types/common'
-
-// ** 都道府県コードを文字列5桁に変換
-const codeToString = (code: number): string  => {
-  return ('0000000000' + code).slice(-2) + '000'
-}
-
-const codeToNumber = (code: string | string[]): number => {
-  return +code.slice(0, 2)
-}
 
 const SelectPrefecture = () => {
   // ** useRouter
   const router = useRouter()
-  const { code, fieldId, menuId } = router.query
+  const { fieldId, menuId } = router.query
 
-  // ** useSWR
-  const url = `/api/prefs`
-  const fetcher: Fetcher<Area[]> = (url: string) =>
-    fetch(url).then(res => res.json())
-  const { data: prefList } = useSWR(url, fetcher)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [prefList] = useAtom(prefListAtom)
 
-  if (!prefList) {
-    return
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [areaList] = useAtom(areaListAtom)
+  const newCity = (areaCode: string): Area => {
+    const prefCode:number = +areaCode.slice(0, 2)
+    const cities = areaList.filter(f => f.prefCode === prefCode)
+
+    return cities[0]
   }
 
-  // ** 都道府県コードの取得
-  const prefCode = code ? codeToNumber(code) : 28
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentPref, setCurrentPref] = useAtom(currentPrefAtom)
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentCity, setCurrentCity] = useAtom(currentCityAtom)
 
   // ** 選択時の処理
   const handleChange = (
-    event: SelectChangeEvent<number | number[]>
+    event: SelectChangeEvent<string | string[]>
   ) => {
-    const value: number = event.target.value as number
-    router.push(
-      `/prefecture/${codeToString(value)}/${fieldId}/${menuId}`
-    )
+    const value: string = event.target.value as string
+
+    const area =
+      prefList.find(f => f.areaCode === value) ?? prefList[0]
+    setCurrentPref(area)
+    setCurrentCity(newCity(value))
+
+    router.push(`/prefecture/${value}/${fieldId}/${menuId}`)
   }
 
   return (
     <div className='demo-space-x'>
       <FormControl variant='standard' size='small'>
-        <Select value={prefCode} onChange={handleChange}>
+        <Select value={currentPref.areaCode} onChange={handleChange}>
           {prefList.map(option => (
-            <MenuItem key={option.prefCode} value={option.prefCode}>
+            <MenuItem key={option.areaCode} value={option.areaCode}>
               {option.prefName}
             </MenuItem>
           ))}
