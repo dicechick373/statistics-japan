@@ -1,9 +1,6 @@
-// ** React Imports
-import { useEffect } from 'react'
-
 // ** Next Imports
 import Head from 'next/head'
-import { Router, useRouter } from 'next/router'
+import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
@@ -45,7 +42,8 @@ import '../../styles/globals.css'
 
 // ** Jotai
 import { Provider, useAtom } from 'jotai'
-import { areaListAtom, globalStateAtom } from '../components/atoms'
+import { areaAtom, globalStateAtom } from '../components/atoms'
+
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -83,22 +81,11 @@ const App = (props: ExtendedAppProps) => {
   const setConfig = Component.setConfig ?? undefined
 
   // ** Jotai
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [areaList, setAreaList] = useAtom(areaListAtom)
+  // const [area, setArea] = useAtom(areaAtom)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [globalState, setGlobalState] = useAtom(globalStateAtom)
-
-  useEffect(() => {
-    const fetchAreas = async () => {
-      const response = await fetch('/api/areas')
-      const data = await response.json()
-      setAreaList(data)
-    }
-    fetchAreas()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <Provider>

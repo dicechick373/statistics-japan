@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next/types'
 import { Area } from 'src/types/common'
+import Json from 'src/json/arealist.json'
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Area[] | Area>) {
-  const response = await fetch("https://storage.googleapis.com/statistics-hyogo/resas/arealist.json")
-  const areas: Area[] = await response.json()
+
+  const areas = Json as Area[]
 
   if (req.query.areaCode) {
     const areaCode = req.query.areaCode

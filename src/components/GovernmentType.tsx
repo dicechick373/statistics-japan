@@ -1,57 +1,57 @@
 // ** MUI Imports
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
-// ** Jotai Imports
-import { useAtom } from 'jotai';
-import { cityCodeAtom, prefCodeAtom } from 'src/components/atoms';
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 // ** Next Imports
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useRouter } from 'next/router'
+
+import { useAtom } from 'jotai'
+import { currentCityAtom, currentPrefAtom } from './atoms'
 
 const GovernmentType = () => {
+  // ** 　選択中の地域コード
+  const router = useRouter()
+  const { governmentType,fieldId, menuId } = router.query
 
-  /*
- ** Jotai
- */
-  const [governmentType, setGovernmentType] = useState<string | null>('prefecture');
-  const [cityCode] = useAtom(cityCodeAtom)
-  const [prefCode] = useAtom(prefCodeAtom)
+  if (!router.query) {
+    return
+  }
 
-  const router = useRouter();
-  const { fieldId, menuId } = router.query
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentPref] = useAtom(currentPrefAtom)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [currentCity] = useAtom(currentCityAtom)
 
 
-  const codeToString = (code: number): string => {
-    return ('0000000000' + code).slice(-2) + '000'
+  const url = (newGov:string) => {
+    const code =
+      newGov === 'prefecture'
+        ? currentPref.areaCode
+        : currentCity.areaCode
+
+    return `/${newGov}/${code}/${fieldId}/${menuId}`
   }
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newVal: any,
+    newVal: any
   ) => {
-    setGovernmentType(newVal)
-    const url = newVal === 'prefecture'
-      ? `/prefecture/${codeToString(prefCode)}/${fieldId}/${menuId}`
-      : `/city/${cityCode}/${fieldId}/${menuId}`
-
-    router.push(url)
-  };
+    router.push(url(newVal))
+  }
 
   return (
     <div className='demo-space-x'>
       <ToggleButtonGroup
-        size="small"
+        size='small'
         value={governmentType}
         exclusive
         onChange={handleChange}
-        aria-label="text alignment"
+        aria-label='text alignment'
       >
-        <ToggleButton value="prefecture" aria-label="left aligned">
+        <ToggleButton value='prefecture' aria-label='left aligned'>
           都道府県の統計
         </ToggleButton>
-        <ToggleButton value="city" aria-label="left aligned">
+        <ToggleButton value='city' aria-label='left aligned'>
           市区町村の統計
         </ToggleButton>
       </ToggleButtonGroup>
