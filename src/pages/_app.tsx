@@ -42,8 +42,7 @@ import '../../styles/globals.css'
 
 // ** Jotai
 import { Provider, useAtom } from 'jotai'
-import { areaAtom, globalStateAtom } from '../components/atoms'
-
+import { globalStateAtom } from '../components/atoms'
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -81,9 +80,6 @@ const App = (props: ExtendedAppProps) => {
   const setConfig = Component.setConfig ?? undefined
 
   // ** Jotai
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const [area, setArea] = useAtom(areaAtom)
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [globalState, setGlobalState] = useAtom(globalStateAtom)
 
