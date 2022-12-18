@@ -14,8 +14,6 @@ import type { EmotionCache } from '@emotion/cache'
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Fake-DB Import
-import 'src/@fake-db'
 
 // ** Component Imports
 import UserLayout from 'src/layouts/UserLayout'
