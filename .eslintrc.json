@@ -13,7 +13,6 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    // "@typescript-eslint/no-explicit-any": "error",
     // add new line above comment
     "lines-around-comment": [
       "error",
@@ -63,5 +62,15 @@
         ]
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/iconify-bundle/*"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ]
 }
