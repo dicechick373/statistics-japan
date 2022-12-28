@@ -47,9 +47,9 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
    */
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'))
 
-  if (hidden && settings.layout === 'horizontal') {
-    settings.layout = 'vertical'
-  }
+  // if (hidden && settings.layout === 'horizontal') {
+  //   settings.layout = 'vertical'
+  // }
 
   return (
     <Layout

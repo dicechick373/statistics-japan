@@ -70,11 +70,11 @@ type ExtendedAppProps = AppProps & {
   emotionCache: EmotionCache
 }
 
-type GuardProps = {
-  authGuard: boolean
-  guestGuard: boolean
-  children: ReactNode
-}
+// type GuardProps = {
+//   authGuard: boolean
+//   guestGuard: boolean
+//   children: ReactNode
+// }
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -91,15 +91,15 @@ if (themeConfig.routingLoader) {
   })
 }
 
-const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
-  if (guestGuard) {
-    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
-  } else if (!guestGuard && !authGuard) {
-    return <>{children}</>
-  } else {
-    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
-  }
-}
+// const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
+//   if (guestGuard) {
+//     return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+//   } else if (!guestGuard && !authGuard) {
+//     return <>{children}</>
+//   } else {
+//     return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
+//   }
+// }
 
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
@@ -112,11 +112,11 @@ const App = (props: ExtendedAppProps) => {
 
   const setConfig = Component.setConfig ?? undefined
 
-  const authGuard = Component.authGuard ?? true
+  // const authGuard = Component.authGuard ?? true
 
-  const guestGuard = Component.guestGuard ?? false
+  // const guestGuard = Component.guestGuard ?? false
 
-  const aclAbilities = Component.acl ?? defaultACLObj
+  // const aclAbilities = Component.acl ?? defaultACLObj
 
   return (
     
@@ -131,7 +131,7 @@ const App = (props: ExtendedAppProps) => {
           <meta name='viewport' content='initial-scale=1, width=device-width' />
         </Head>
 
-        <AuthProvider>
+        {/* <AuthProvider> */}
           <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
             <SettingsConsumer>
               {({ settings }) => {
@@ -148,7 +148,7 @@ const App = (props: ExtendedAppProps) => {
               }}
             </SettingsConsumer>
           </SettingsProvider>
-        </AuthProvider>
+        {/* </AuthProvider> */}
       </CacheProvider>
    
   )
