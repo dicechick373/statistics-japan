@@ -8,6 +8,10 @@ import MuiListSubheader, { ListSubheaderProps } from '@mui/material/ListSubheade
 import { NavSectionTitle } from 'src/@core/layouts/types'
 import { Settings } from 'src/@core/context/settingsContext'
 
+// ** Custom Components Imports
+import Translations from 'src/layouts/components/Translations'
+import CanViewNavSectionTitle from 'src/layouts/components/acl/CanViewNavSectionTitle'
+
 interface Props {
   navHover: boolean
   settings: Settings
@@ -38,41 +42,32 @@ const VerticalNavSectionTitle = (props: Props) => {
   const theme = useTheme()
 
   // ** Vars
-  const { skin, navCollapsed } = settings
+  const { mode, navCollapsed } = settings
 
   const conditionalBorderColor = () => {
-    if (skin === 'semi-dark' && theme.palette.mode === 'light') {
+    if (mode === 'semi-dark') {
       return {
         '&, &:before': {
           borderColor: `rgba(${theme.palette.customColors.dark}, 0.12)`
-        }
-      }
-    } else if (skin === 'semi-dark' && theme.palette.mode === 'dark') {
-      return {
-        '&, &:before': {
-          borderColor: `rgba(${theme.palette.customColors.light}, 0.12)`
         }
       }
     } else return {}
   }
 
   const conditionalColor = () => {
-    if (skin === 'semi-dark' && theme.palette.mode === 'light') {
+    if (mode === 'semi-dark') {
       return {
         color: `rgba(${theme.palette.customColors.dark}, 0.38) !important`
       }
-    } else if (skin === 'semi-dark' && theme.palette.mode === 'dark') {
-      return {
-        color: `rgba(${theme.palette.customColors.light}, 0.38) !important`
-      }
     } else {
       return {
-        color: theme.palette.text.disabled
+        color: 'text.disabled'
       }
     }
   }
 
   return (
+    <CanViewNavSectionTitle navTitle={item}>
       <ListSubheader
         className='nav-section-title'
         sx={{
@@ -84,26 +79,27 @@ const VerticalNavSectionTitle = (props: Props) => {
         <Divider
           textAlign='left'
           sx={{
-            m: 0,
+            m: '0 !important',
             lineHeight: 'normal',
             ...conditionalBorderColor(),
             '&:after': { display: 'none' },
             ...(navCollapsed && !navHover
               ? { width: 22 }
               : {
-                width: '100%',
-                '&:before': { top: 7, transform: 'none', width: theme.spacing(4) },
-                '& .MuiDivider-wrapper': { px: 4, fontSize: '0.75rem', letterSpacing: '0.21px' }
-              })
+                  width: '100%',
+                  '&:before': { top: 7, transform: 'none', width: theme.spacing(4) },
+                  '& .MuiDivider-wrapper': { px: 4, fontSize: '0.75rem', letterSpacing: '0.21px' }
+                })
           }}
         >
           {navCollapsed && !navHover ? null : (
             <Typography noWrap variant='caption' sx={{ ...conditionalColor() }}>
-              {item.sectionTitle}
+              <Translations text={item.sectionTitle} />
             </Typography>
           )}
         </Divider>
       </ListSubheader>
+    </CanViewNavSectionTitle>
   )
 }
 

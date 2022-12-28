@@ -14,7 +14,7 @@ import Box, { BoxProps } from '@mui/material/Box'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
-// import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
+import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 
 // ** Styled Components
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -50,13 +50,11 @@ const Error401 = () => {
           <Typography variant='body2'>You don&prime;t have permission to access this page. Go Home!</Typography>
         </BoxWrapper>
         <Img alt='error-illustration' src='/images/pages/401.png' />
-        <Link passHref href='/'>
-          <Button component='a' variant='contained' sx={{ px: 5.5 }}>
-            Back to Home
-          </Button>
-        </Link>
+        <Button href='/' component={Link} variant='contained' sx={{ px: 5.5 }}>
+          Back to Home
+        </Button>
       </Box>
-      {/* <FooterIllustrations image='/images/pages/misc-401-object.png' /> */}
+      <FooterIllustrations image='/images/pages/misc-401-object.png' />
     </Box>
   )
 }

@@ -7,23 +7,35 @@ import { useRouter } from 'next/router'
 // ** Spinner Import
 import Spinner from 'src/@core/components/spinner'
 
+// ** Hook Imports
+// import { useAuth } from 'src/hooks/useAuth'
 
-import { useAtom } from 'jotai'
-import { globalStateAtom } from 'src/components/atoms'
+/**
+ *  Set Home URL based on User Roles
+ */
+export const getHomeRoute = (role: string) => {
+  if (role === 'client') return '/acl'
+  else return '/home'
+}
 
 const Home = () => {
+  // ** Hooks
+  // const auth = useAuth()
   const router = useRouter()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [globalState, setGlobalState] = useAtom(globalStateAtom)
-  const { governmentType, code, fieldId, menuId } = globalState
-
-
-  const url = `/${governmentType}/${code}/${fieldId}/${menuId}/`
-
   useEffect(() => {
-    router.replace(url)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!router.isReady) {
+      return
+    }
+    router.replace('home')
+
+    // if (auth.user && auth.user.role) {
+    //   const homeRoute = getHomeRoute(auth.user.role)
+
+    //   // Redirect user to Home URL
+    //   router.replace('home')
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return <Spinner />
