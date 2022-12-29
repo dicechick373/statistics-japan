@@ -1,5 +1,5 @@
 // ** React Imports
-// import { forwardRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -9,6 +9,7 @@ import CardContent from '@mui/material/CardContent'
 
 // ** Third Party Imports
 import { ApexOptions } from 'apexcharts'
+import useSWR from 'swr'
 
 // ** Component Import
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
@@ -30,9 +31,25 @@ const series = [
   }
 ]
 
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
 const TotalPopulation = () => {
   // ** Hook
   const theme = useTheme()
+  const { areaCode } = useRouter().query
+  console.log(areaCode)
+
+  const cardId = 'total-population'
+
+  // ** useSWR
+  const { data, error } = useSWR(
+    areaCode ? `/api/apexcharts/?cardId=${cardId}&areaCode=${areaCode}` : null,
+    fetcher
+  )
+  if (error) return <div>An error has occurred.</div>
+  if (!data) return <div>Loading...</div>
+
+  console.log(data)
 
   const options: ApexOptions = {
     chart: {
@@ -66,7 +83,13 @@ const TotalPopulation = () => {
         columnWidth: '15%',
         colors: {
           backgroundBarRadius: 10,
-          backgroundBarColors: [columnColors.bg, columnColors.bg, columnColors.bg, columnColors.bg, columnColors.bg]
+          backgroundBarColors: [
+            columnColors.bg,
+            columnColors.bg,
+            columnColors.bg,
+            columnColors.bg,
+            columnColors.bg
+          ]
         }
       }
     },
@@ -84,7 +107,17 @@ const TotalPopulation = () => {
     xaxis: {
       axisBorder: { show: false },
       axisTicks: { color: theme.palette.divider },
-      categories: ['7/12', '8/12', '9/12', '10/12', '11/12', '12/12', '13/12', '14/12', '15/12'],
+      categories: [
+        '7/12',
+        '8/12',
+        '9/12',
+        '10/12',
+        '11/12',
+        '12/12',
+        '13/12',
+        '14/12',
+        '15/12'
+      ],
       crosshairs: {
         stroke: { color: theme.palette.divider }
       },
@@ -106,7 +139,6 @@ const TotalPopulation = () => {
     ]
   }
 
-
   return (
     <Card>
       <CardHeader
@@ -119,7 +151,12 @@ const TotalPopulation = () => {
         }}
       />
       <CardContent>
-        <ReactApexcharts type='bar' height={400} options={options} series={series} />
+        <ReactApexcharts
+          type='bar'
+          height={400}
+          options={options}
+          series={series}
+        />
       </CardContent>
     </Card>
   )
