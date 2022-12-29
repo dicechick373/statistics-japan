@@ -24,6 +24,14 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
+      sectionTitle: '分野別で見る'
+    },
+    {
+      title: '人口・世帯',
+      icon: 'mdi:email-outline',
+      path: '/population/prefecture/28000'
+    },
+    {
       sectionTitle: 'Apps & Pages'
     },
     {
