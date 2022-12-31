@@ -5,9 +5,7 @@ import { useRouter } from 'next/router'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
-import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
@@ -22,49 +20,14 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  TooltipProps,
   Legend
 } from 'recharts'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Types Imports
+import { ComposedGroup } from 'src/types/common'
 
 // ** Types Imports
-import { ComposedGroup, ComposedSeries } from 'src/types/common'
-
-const CustomTooltip = (data: TooltipProps<any, any>) => {
-  const { active, payload } = data
-
-  if (active && payload) {
-    return (
-      <div className='recharts-custom-tooltip'>
-        <Typography>{data.label}</Typography>
-        <Divider />
-        {data &&
-          data.payload &&
-          data.payload.map((i: any) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  '& svg': { color: i.fill, mr: 2.5 }
-                }}
-                key={i.dataKey}
-              >
-                <Icon icon='mdi:circle' fontSize='0.6rem' />
-                <Typography variant='body2'>{`${i.dataKey} : ${
-                  i.payload[i.dataKey]
-                }`}</Typography>
-              </Box>
-            )
-          })}
-      </div>
-    )
-  }
-
-  return null
-}
+import CustomTooltip from 'src/pages/components/CustomTooltip'
 
 // ** Set Card
 const cardId = 'total-population'
@@ -78,7 +41,7 @@ const group: ComposedGroup[] = [
 ]
 
 // ** Set Series
-const series: ComposedSeries[] = [
+const series = [
   { name: '総数', group: 'all', stackId: 'a', fill: '#826af9', unit: '人' },
   { name: '男性', group: 'sex', stackId: 'a', fill: '#9f87ff', unit: '人' },
   { name: '女性', group: 'sex', stackId: 'a', fill: '#d2b0ff', unit: '人' },
@@ -94,7 +57,7 @@ const filterSeries = (group: string) => {
 const TotalPopulation = () => {
   // ** State
   const [active, setActive] = useState<string | null>('all')
-  const [activeSeries, setActiveSeries] = useState<ComposedSeries[]>(
+  const [activeSeries, setActiveSeries] = useState(
     filterSeries('all')
   )
 

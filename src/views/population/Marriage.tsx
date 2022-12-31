@@ -1,13 +1,10 @@
 // ** React Imports
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
-import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 // ** Third Party Imports
@@ -19,39 +16,24 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  TooltipProps,
   Legend,
   ComposedChart
 } from 'recharts'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 // ** Types Imports
-import { ComposedSeries } from 'src/types/common'
 import CustomTooltip from 'src/pages/components/CustomTooltip'
-
 
 // ** Set Card
 const cardId = 'marriage'
 const cardTitle = '結婚・離婚'
 
 // ** Set Series
-const series: ComposedSeries[] = [
+const series = [
   { name: '婚姻件数', group: 'all', stackId: 'a', fill: '#826af9', unit: '人' },
   { name: '離婚件数', group: 'all', stackId: 'a', fill: '#9f87ff', unit: '人' }
 ]
 
-const filterSeries = (group: string) => {
-  return series.filter(f => f.group === group)
-}
-
 const Marriage = () => {
-  // ** State
-  const [activeSeries, setActiveSeries] = useState<ComposedSeries[]>(
-    filterSeries('all')
-  )
-
   // ** useRouter
   const { areaCode } = useRouter().query
 
@@ -96,7 +78,7 @@ const Marriage = () => {
                 iconType='plainline'
               />
               <Tooltip content={CustomTooltip} />
-              {activeSeries.map(d => {
+              {series.map(d => {
                 return (
                   <Line
                     key={d.name}

@@ -1,5 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -17,59 +18,19 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  TooltipProps,
   BarChart,
   Bar
 } from 'recharts'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 // ** Custom Components Imports
 import SelectTime from 'src/pages/components/SelectTime'
 
-// ** Types
-import { useRouter } from 'next/router'
+// ** Types Imports
+import CustomTooltip from 'src/pages/components/CustomTooltip'
 
 // ** Set Card
 const cardId = 'population-pyramid'
 const cardTitle = '人口構成'
-
-
-
-const CustomTooltip = (data: TooltipProps<any, any>) => {
-  const { active, payload } = data
-
-  if (active && payload) {
-    return (
-      <div className='recharts-custom-tooltip'>
-        <Typography>{data.label}</Typography>
-        <Divider />
-        {data &&
-          data.payload &&
-          data.payload.map((i: any) => {
-            return (
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  '& svg': { color: i.fill, mr: 2.5 }
-                }}
-                key={i.dataKey}
-              >
-                <Icon icon='mdi:circle' fontSize='0.6rem' />
-                <Typography variant='body2'>{`${i.dataKey} : ${
-                  i.payload[i.dataKey]
-                }`}</Typography>
-              </Box>
-            )
-          })}
-      </div>
-    )
-  }
-
-  return null
-}
 
 const PopulationPyramid = () => {
   // ** States
