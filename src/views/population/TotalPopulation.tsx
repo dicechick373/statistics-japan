@@ -22,11 +22,15 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  TooltipProps
+  TooltipProps,
+  Legend
 } from 'recharts'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Types Imports
+import { ComposedGroup, ComposedSeries } from 'src/types/common'
 
 const CustomTooltip = (data: TooltipProps<any, any>) => {
   const { active, payload } = data
@@ -67,24 +71,31 @@ const cardId = 'total-population'
 const cardTitle = '総人口'
 
 // ** Set Group
-const group = [
+const group: ComposedGroup[] = [
   { name: '総数', value: 'all' },
   { name: '男女', value: 'sex' },
   { name: '年齢３区分', value: 'age' }
 ]
 
 // ** Set Series
-const series = [
+const series: ComposedSeries[] = [
   { name: '総数', group: 'all', stackId: 'a', fill: '#826af9', unit: '人' },
   { name: '男性', group: 'sex', stackId: 'a', fill: '#9f87ff', unit: '人' },
-  { name: '女性', group: 'sex', stackId: 'a', fill: '#d2b0ff', unit: '人' }
+  { name: '女性', group: 'sex', stackId: 'a', fill: '#d2b0ff', unit: '人' },
+  { name: '15歳未満', group: 'age', stackId: 'a', fill: '#826af9', unit: '人' },
+  { name: '15～64歳', group: 'age', stackId: 'a', fill: '#9f87ff', unit: '人' },
+  { name: '65歳以上', group: 'age', stackId: 'a', fill: '#d2b0ff', unit: '人' }
 ]
+
+const filterSeries = (group: string) => {
+  return series.filter(f => f.group === group)
+}
 
 const TotalPopulation = () => {
   // ** State
   const [active, setActive] = useState<string | null>('all')
-  const [activeSeries, setActiveSeries] = useState<[]>(
-    series.filter(f => f.group === 'all')
+  const [activeSeries, setActiveSeries] = useState<ComposedSeries[]>(
+    filterSeries('all')
   )
 
   // ** useRouter
@@ -102,12 +113,9 @@ const TotalPopulation = () => {
   if (!data) return <div>Loading...</div>
 
   // ** change active
-  const handleActive = (
-    event: MouseEvent<HTMLElement>,
-    newActive: string | null
-  ) => {
+  const handleActive = (event: MouseEvent<HTMLElement>, newActive: string) => {
     setActive(newActive)
-    setActiveSeries(series.filter(f => f.group === newActive))
+    setActiveSeries(filterSeries(newActive))
   }
 
   return (
@@ -137,13 +145,19 @@ const TotalPopulation = () => {
           <ResponsiveContainer>
             <BarChart
               height={350}
-              data={data}
+              data={data.values}
               barSize={15}
               margin={{ left: -20 }}
             >
               <CartesianGrid strokeDasharray='3 3' />
               <XAxis dataKey='timeCode' />
               <YAxis orientation={'left'} />
+              <Legend
+                verticalAlign='top'
+                height={30}
+                iconSize={20}
+                iconType='plainline'
+              />
               <Tooltip content={CustomTooltip} />
               {activeSeries.map(d => {
                 return (
@@ -155,9 +169,6 @@ const TotalPopulation = () => {
                   />
                 )
               })}
-              {/* <Bar dataKey='総数' stackId='a' fill='#826af9' />
-              <Bar dataKey='男性' stackId='a' fill='#9f87ff' />
-              <Bar dataKey='女性' stackId='a' fill='#d2b0ff' /> */}
             </BarChart>
           </ResponsiveContainer>
         </Box>

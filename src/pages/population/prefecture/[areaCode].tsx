@@ -25,19 +25,17 @@ const RechartsPieChart = dynamic(
   () => import('src/views/charts/recharts/RechartsPieChart'),
   { ssr: false }
 )
-const RechartsLineChart = dynamic(
-  () => import('src/views/charts/recharts/RechartsLineChart'),
-  { ssr: false }
-)
+
 const TotalPopulation = dynamic(
   () => import('src/views/population/TotalPopulation'),
   { ssr: false }
 )
 
-const RechartsAreaChart = dynamic(
-  () => import('src/views/charts/recharts/RechartsAreaChart'),
+const PopulationPyramid = dynamic(
+  () => import('src/views/population/PopulationPyramid'),
   { ssr: false }
 )
+
 const RechartsRadarChart = dynamic(
   () => import('src/views/charts/recharts/RechartsRadarChart'),
   { ssr: false }
@@ -76,7 +74,8 @@ const Recharts = () => {
             <TotalPopulation />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <RechartsAreaChart direction={settings.direction} />
+            <PopulationPyramid />
+            {/* <RechartsAreaChart direction={settings.direction} /> */}
           </Grid>
           <Grid item xs={12}>
             <RechartsScatterChart direction={settings.direction} />
