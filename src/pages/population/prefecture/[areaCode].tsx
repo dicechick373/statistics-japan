@@ -36,6 +36,10 @@ const PopulationPyramid = dynamic(
   { ssr: false }
 )
 
+const Marriage = dynamic(() => import('src/views/population/Marriage'), {
+  ssr: false
+})
+
 const RechartsRadarChart = dynamic(
   () => import('src/views/charts/recharts/RechartsRadarChart'),
   { ssr: false }
@@ -75,7 +79,12 @@ const Recharts = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <PopulationPyramid />
-            {/* <RechartsAreaChart direction={settings.direction} /> */}
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Marriage />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <RechartsPieChart />
           </Grid>
           <Grid item xs={12}>
             <RechartsScatterChart direction={settings.direction} />
@@ -83,12 +92,7 @@ const Recharts = () => {
           <Grid item xs={12}>
             <RechartsBarChart direction={settings.direction} />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsRadarChart />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <RechartsPieChart />
-          </Grid>
+          Ï
         </Grid>
       </DatePickerWrapper>
     </RechartsWrapper>
