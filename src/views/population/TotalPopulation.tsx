@@ -1,162 +1,166 @@
 // ** React Imports
+import { MouseEvent, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import { useTheme } from '@mui/material/styles'
+import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import ToggleButton from '@mui/material/ToggleButton'
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 // ** Third Party Imports
-import { ApexOptions } from 'apexcharts'
 import useSWR from 'swr'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  TooltipProps
+} from 'recharts'
 
-// ** Component Import
-import ReactApexcharts from 'src/@core/components/react-apexcharts'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-const columnColors = {
-  bg: '#f8d3ff',
-  series1: '#826af9',
-  series2: '#d2b0ff'
+const CustomTooltip = (data: TooltipProps<any, any>) => {
+  const { active, payload } = data
+
+  if (active && payload) {
+    return (
+      <div className='recharts-custom-tooltip'>
+        <Typography>{data.label}</Typography>
+        <Divider />
+        {data &&
+          data.payload &&
+          data.payload.map((i: any) => {
+            return (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  '& svg': { color: i.fill, mr: 2.5 }
+                }}
+                key={i.dataKey}
+              >
+                <Icon icon='mdi:circle' fontSize='0.6rem' />
+                <Typography variant='body2'>{`${i.dataKey} : ${
+                  i.payload[i.dataKey]
+                }`}</Typography>
+              </Box>
+            )
+          })}
+      </div>
+    )
+  }
+
+  return null
 }
 
-const series = [
-  {
-    name: 'Apple',
-    data: [90, 120, 55, 100, 80, 125, 175, 70, 88]
-  },
-  {
-    name: 'Samsung',
-    data: [85, 100, 30, 40, 95, 90, 30, 110, 62]
-  }
+// ** Set Card
+const cardId = 'total-population'
+const cardTitle = '総人口'
+
+// ** Set Group
+const group = [
+  { name: '総数', value: 'all' },
+  { name: '男女', value: 'sex' },
+  { name: '年齢３区分', value: 'age' }
 ]
 
-const fetcher = (url: string) => fetch(url).then(res => res.json())
+// ** Set Series
+const series = [
+  { name: '総数', group: 'all', stackId: 'a', fill: '#826af9', unit: '人' },
+  { name: '男性', group: 'sex', stackId: 'a', fill: '#9f87ff', unit: '人' },
+  { name: '女性', group: 'sex', stackId: 'a', fill: '#d2b0ff', unit: '人' }
+]
 
 const TotalPopulation = () => {
-  // ** Hook
-  const theme = useTheme()
-  const { areaCode } = useRouter().query
-  console.log(areaCode)
+  // ** State
+  const [active, setActive] = useState<string | null>('all')
+  const [activeSeries, setActiveSeries] = useState<[]>(
+    series.filter(f => f.group === 'all')
+  )
 
-  const cardId = 'total-population'
+  // ** useRouter
+  const { areaCode } = useRouter().query
 
   // ** useSWR
+  const fetcher = (url: string) => fetch(url).then(res => res.json())
   const { data, error } = useSWR(
-    areaCode ? `/api/apexcharts/?cardId=${cardId}&areaCode=${areaCode}` : null,
+    areaCode ? `/api/recharts/?cardId=${cardId}&areaCode=${areaCode}` : null,
     fetcher
   )
+
+  // ** error
   if (error) return <div>An error has occurred.</div>
   if (!data) return <div>Loading...</div>
 
-  console.log(data)
-
-  const options: ApexOptions = {
-    chart: {
-      offsetX: -10,
-      stacked: true,
-      parentHeightOffset: 0,
-      toolbar: { show: false }
-    },
-    fill: { opacity: 1 },
-    dataLabels: { enabled: false },
-    colors: [columnColors.series1, columnColors.series2],
-    legend: {
-      position: 'top',
-      horizontalAlign: 'left',
-      labels: { colors: theme.palette.text.secondary },
-      markers: {
-        offsetY: 1,
-        offsetX: -3
-      },
-      itemMargin: {
-        vertical: 3,
-        horizontal: 10
-      }
-    },
-    stroke: {
-      show: true,
-      colors: ['transparent']
-    },
-    plotOptions: {
-      bar: {
-        columnWidth: '15%',
-        colors: {
-          backgroundBarRadius: 10,
-          backgroundBarColors: [
-            columnColors.bg,
-            columnColors.bg,
-            columnColors.bg,
-            columnColors.bg,
-            columnColors.bg
-          ]
-        }
-      }
-    },
-    grid: {
-      borderColor: theme.palette.divider,
-      xaxis: {
-        lines: { show: true }
-      }
-    },
-    yaxis: {
-      labels: {
-        style: { colors: theme.palette.text.disabled }
-      }
-    },
-    xaxis: {
-      axisBorder: { show: false },
-      axisTicks: { color: theme.palette.divider },
-      categories: [
-        '7/12',
-        '8/12',
-        '9/12',
-        '10/12',
-        '11/12',
-        '12/12',
-        '13/12',
-        '14/12',
-        '15/12'
-      ],
-      crosshairs: {
-        stroke: { color: theme.palette.divider }
-      },
-      labels: {
-        style: { colors: theme.palette.text.disabled }
-      }
-    },
-    responsive: [
-      {
-        breakpoint: 600,
-        options: {
-          plotOptions: {
-            bar: {
-              columnWidth: '35%'
-            }
-          }
-        }
-      }
-    ]
+  // ** change active
+  const handleActive = (
+    event: MouseEvent<HTMLElement>,
+    newActive: string | null
+  ) => {
+    setActive(newActive)
+    setActiveSeries(series.filter(f => f.group === newActive))
   }
 
   return (
     <Card>
       <CardHeader
-        title='総人口'
+        title={cardTitle}
         sx={{
           flexDirection: ['column', 'row'],
           alignItems: ['flex-start', 'center'],
           '& .MuiCardHeader-action': { mb: 0 },
           '& .MuiCardHeader-content': { mb: [2, 0] }
         }}
+        action={
+          <ToggleButtonGroup exclusive value={active} onChange={handleActive}>
+            {group.map(d => {
+              return (
+                <ToggleButton key={d.value} value={d.value}>
+                  {d.name}
+                </ToggleButton>
+              )
+            })}
+          </ToggleButtonGroup>
+        }
       />
       <CardContent>
-        <ReactApexcharts
-          type='bar'
-          height={400}
-          options={options}
-          series={series}
-        />
+        <Box sx={{ height: 350 }}>
+          <ResponsiveContainer>
+            <BarChart
+              height={350}
+              data={data}
+              barSize={15}
+              margin={{ left: -20 }}
+            >
+              <CartesianGrid strokeDasharray='3 3' />
+              <XAxis dataKey='timeCode' />
+              <YAxis orientation={'left'} />
+              <Tooltip content={CustomTooltip} />
+              {activeSeries.map(d => {
+                return (
+                  <Bar
+                    key={d.name}
+                    dataKey={d.name}
+                    stackId={d.stackId}
+                    fill={d.fill}
+                  />
+                )
+              })}
+              {/* <Bar dataKey='総数' stackId='a' fill='#826af9' />
+              <Bar dataKey='男性' stackId='a' fill='#9f87ff' />
+              <Bar dataKey='女性' stackId='a' fill='#d2b0ff' /> */}
+            </BarChart>
+          </ResponsiveContainer>
+        </Box>
       </CardContent>
     </Card>
   )
