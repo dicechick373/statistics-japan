@@ -40,6 +40,12 @@ const Marriage = dynamic(() => import('src/views/population/Marriage'), {
   ssr: false
 })
 
+import InfoTotalPopulation from 'src/views/population/InfoTotalPopulation'
+
+import CrmTotalGrowth from 'src/views/dashboards/crm/CrmTotalGrowth'
+import CrmTotalProfit from 'src/views/dashboards/crm/CrmTotalProfit'
+import EcommerceTotalVisits from 'src/views/dashboards/ecommerce/EcommerceTotalVisits'
+
 const RechartsRadarChart = dynamic(
   () => import('src/views/charts/recharts/RechartsRadarChart'),
   { ssr: false }
@@ -74,6 +80,18 @@ const Recharts = () => {
               </Typography>
             }
           />
+          <Grid item xs={6} sm={3} md={2}>
+            <CrmTotalProfit />
+          </Grid>
+          <Grid item xs={6} sm={3} md={2}>
+            <CrmTotalGrowth />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <EcommerceTotalVisits />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <InfoTotalPopulation />
+          </Grid>
           <Grid item xs={12} md={8}>
             <TotalPopulation />
           </Grid>
