@@ -29,7 +29,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: '人口・世帯',
       icon: 'mdi:email-outline',
-      path: '/population/prefecture/28000'
+      path: '/population/dashboard/28000'
     },
     {
       sectionTitle: 'Apps & Pages'
