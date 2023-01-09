@@ -1,7 +1,15 @@
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
+// ** Jotai Imports
+import { useAtom } from 'jotai';
+import { areaCodeAtom } from 'src/atoms';
+
 const navigation = (): VerticalNavItemsType => {
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [areaCode] = useAtom(areaCodeAtom)
+
   return [
     {
       title: 'Dashboards',
@@ -29,7 +37,24 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: '人口・世帯',
       icon: 'mdi:email-outline',
-      path: '/population/dashboard/28000'
+      children: [
+        {
+          title: 'Dashboard',
+          path:  `/population/dashboard/${areaCode}`
+        },
+        {
+          title: '人口・世帯',
+          path: `/population/population/${areaCode}`
+        },
+        {
+          title: '結婚・離婚',
+          path: `/population/marriage/${areaCode}`
+        },
+        {
+          title: '転入・転出',
+          path: `/population/inflowoutflow/${areaCode}`
+        }
+      ]
     },
     {
       sectionTitle: 'Apps & Pages'
@@ -358,7 +383,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'mdi:google-circles-extended'
     },
     {
-      
+
       title: 'Cards',
       icon: 'mdi:credit-card-outline',
       children: [
